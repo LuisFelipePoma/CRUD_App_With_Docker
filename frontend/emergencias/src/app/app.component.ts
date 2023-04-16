@@ -20,6 +20,4 @@ export class AppComponent {
       console.log(Object.values(usuarios.valueOf()));
     });
   }
-  // data = Object.values(this.usuarios);
-
 }

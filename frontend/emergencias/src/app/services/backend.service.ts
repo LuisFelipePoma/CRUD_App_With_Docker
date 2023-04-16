@@ -9,6 +9,6 @@ export class PruebaService {
   constructor(private http: HttpClient) { }
 
   obtenerUsuarios() {
-    return this.http.get('http://174.129.174.8:5000/api/prueba');
+    return this.http.get('http://54.161.75.151:5000/api/prueba');
   }
 }
