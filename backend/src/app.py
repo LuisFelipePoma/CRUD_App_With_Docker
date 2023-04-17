@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '44.202.57.114'
+app.config['MYSQL_HOST'] = '54.173.12.195'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'
@@ -32,7 +32,7 @@ def index():
     cursor.close()
     return str(result)
 
-@app.route('/api/prueba')
+@app.route('/personal')
 def obtener_usuarios():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM personal")

@@ -1,19 +1,115 @@
 <router-outlet></router-outlet>
-<table class="tabla bt-">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Apellido Paterno</th>
-      <th>Apellido Materno</th>
-      <th>Tipo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of usuarios | keyvalue" [hidden]="item.value.length == 0">
-      <td *ngFor="let item1 of item.value | keyvalue" [hidden]="item1.value.length == 0">
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of usuarios | keyvalue" [hidden]="item.value.length == 0">
+        <td *ngFor="let item1 of item.value | keyvalue" [hidden]="item1.value.length == 0">
           {{item1.value}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row justify-content-around">
+    <a class="col-3 btn btn-primary"href="">Insertar</a>
+    <a class="col-3 btn btn-warning"href="">Editar</a>
+    <a class="col-3 btn btn-danger"href="">Eliminar</a>
+  </div>
+
+</div>
+
+
+<!-- <div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Carlos</td>
+        <td>carlos@example.com</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>María</td>
+        <td>maria@example.com</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Pedro</td>
+        <td>pedro@example.com</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+
+
+<!-- <div class="e2_2 container">
+  <div class="e3_127 row"></div><span class="e3_116">Acceso a las tablas de registro</span>
+  <div class="contenido row align-items-start">
+    <div class="e3_118 btn col-3">
+      <div class="e3_120">
+        <div class="e3_99"></div><span class="e3_100">Equipo</span>
+      </div>
+    </div>
+    <div class="e3_132 btn col-3">
+      <div class="e3_133 ">
+        <div class="e3_134"></div><span class="e3_135 ">Personal</span>
+      </div>
+    </div>
+    <div class="e3_128 btn col-3">
+      <div class="e3_129 row">
+        <div class="e3_130"></div><span class="e3_131">Incidentes</span>
+      </div>
+    </div>
+  </div> -->
+<!-- <div class="e3_105"> -->
+
+<!-- </div>
+  <span class="e3_107">
+    Pilco Chiuyare, André Darío (Lima, Perú).
+    Contacto: andrepilcoch@gmail.com
+    Poma Astete, Luis Felipe (Lima, Perú).
+    Contacto: luisfelipe@gmail.com
+    Sovero Cubillas, John Davids (Lima, Perú).
+    Contacto: johnsovero@gmail.com</span>
+  <span class="e3_106">CRÉDITOS DEL SITIO WEB</span>
+  <span class="e3_108">UNIVERSIDAD PERUANA DE CIENCIAS APLICADAS</span>
+  <div class="e3_112"></div><span class="e2_92">Emerginet</span> -->
+<!-- </div> -->
+
+<!-- <div class="container">
+  <div class="row justify-content-center" id = "cabezera">
+
+  </div>
+  <div class="row justify-content-around" id = "contenido">
+    <div class="col-4">
+      <a class="btn">One of two columns</a>
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-center" id="creditos">
+    <div class="col-3">
+      One of two columns
+    </div>
+  </div>
+</div> -->
