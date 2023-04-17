@@ -27,7 +27,7 @@ def init():
 @app.route('/testing')
 def index():
     cursor = mysql.connection.cursor()
-    cursor.execute('''SELECT * FROM prueba''')
+    cursor.execute('''SELECT * FROM personal''')
     result = cursor.fetchall()
     cursor.close()
     return str(result)
@@ -35,7 +35,7 @@ def index():
 @app.route('/api/prueba')
 def obtener_usuarios():
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM prueba")
+    cursor.execute("SELECT * FROM personal")
     usuarios = cursor.fetchall()
     return jsonify(usuarios)
 
