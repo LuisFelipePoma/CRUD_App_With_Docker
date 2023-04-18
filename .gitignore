@@ -85,6 +85,7 @@ ipython_config.py
 .python-version
 
 backend/venv/
+backend/emerginet-env/
 
 # pipenv
 #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
@@ -107,6 +108,7 @@ celerybeat.pid
 .env
 .venv
 env/
+emerginet-env/
 venv/
 ENV/
 env.bak/
