@@ -107,6 +107,7 @@ celerybeat.pid
 .env
 .venv
 env/
+emerginet-env/
 venv/
 ENV/
 env.bak/
