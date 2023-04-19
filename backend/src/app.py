@@ -8,7 +8,7 @@ import json
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '44.201.234.131'
+app.config['MYSQL_HOST'] = '3.83.207.102'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'

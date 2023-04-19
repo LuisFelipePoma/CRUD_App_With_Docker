@@ -9,12 +9,12 @@ export class APISService {
   constructor(private http: HttpClient) { }
 
   obtenerPersonal() {
-    return this.http.get('http://192.168.18.4:5000/personal');
+    return this.http.get('http://127.0.0.1:5000/personal');
   }
   obtenerIncidente(){
-    return this.http.get('http://192.168.18.4:5000/incidente');
+    return this.http.get('http://127.0.0.1:5000/incidente');
   }
   obtenerEquipo(){
-    return this.http.get('http://192.168.18.4:5000/equipo');
+    return this.http.get('http://127.0.0.1:5000/equipo');
   }
 }

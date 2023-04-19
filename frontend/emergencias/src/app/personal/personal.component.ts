@@ -7,6 +7,12 @@ import {APISService} from '../services/backend.service';
   styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
+  mostrarFormulario = false;
+  nombre_personal: string = '';
+  apellido_pat: string = '';
+  apellido_mat: string = '';
+  Tipo_Personal: string = '';
+
   public personal: any = [];
   public personal_formateado: any = [];
   constructor(private personalService: APISService) { }
@@ -30,5 +36,21 @@ export class PersonalComponent implements OnInit {
       console.log(personales)
       this.personal_formateado = personales;
     });
+  }
+  guardarPersonal() {
+    // Envía los datos a la base de datos
+    console.log('Datos enviados: ', this.nombre_personal, this.apellido_pat, this.apellido_mat, this.Tipo_Personal);
+
+    // Oculta el formulario emergente
+    this.mostrarFormulario = false;
+
+    this.nombre_personal = '';
+    this.apellido_pat = '';
+    this.apellido_mat = '';
+    this.Tipo_Personal = '';
+  }
+  cancelar() {
+    // Oculta el formulario emergente
+    this.mostrarFormulario = false;
   }
 }

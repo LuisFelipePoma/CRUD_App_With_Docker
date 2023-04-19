@@ -8,6 +8,8 @@ import { PersonalComponent } from './personal/personal.component';
 import { HomeComponent } from './home/home.component';
 import { IncidentesComponent } from './incidentes/incidentes.component';
 import { EquipoComponent } from './equipo/equipo.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { EquipoComponent } from './equipo/equipo.component';
     BrowserModule,
     AppRoutingModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
