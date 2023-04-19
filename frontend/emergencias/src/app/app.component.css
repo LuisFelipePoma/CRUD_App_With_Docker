@@ -1,64 +1,49 @@
 .background {
   background-color: #27403D;
-  height: 200px;
+  height: 15vh;
 }
 
 .background2 {
   background-color: #F1E4DB;
-  height: 230px;
+  height: 55vh;
+  padding: 0%;
+  margin: 0;
 }
 
 .titulo {
-  font-size: 60px;
   color: #F1E4DB;
-  font-family: 'Lora';
 }
 
 .titulo2 {
-  padding-top: 50px;
   color: #27403D;
-  font-family: 'Lora';
 }
 
 .btn {
   background-color: #2B2B28;
   color: #D88F2E;
-  font-size: 40px;
-  font-family: 'Lora';
 }
 
-
 .footer {
-  background-color: #2B2B28;
   color: #80807D;
 }
 
-.inter {
-  padding-left: 20px;
-  line-height: 1;
+.texto {
   font-family: 'Lora';
 }
 
-.bold {
-  font-weight: bold;
+.color {
+  background-color: #2B2B28;
+  height: 30vh;
 }
 
-.card-title {
-  padding-bottom: 15px;
-  font-family: 'Lora';
-  text-align: center;
-}
-
-.universidad {
-  font-size: 30px;
-}
-
-.footerback,
 body {
   margin: 0px;
   padding: 0px;
   height: 100%;
   overflow: hidden;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
   background-color: #2B2B28;
 }
 
