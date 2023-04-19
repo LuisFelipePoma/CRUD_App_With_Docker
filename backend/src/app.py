@@ -1,7 +1,9 @@
 from flask import Flask,Response, jsonify, request
 from flask_mysqldb import MySQL
+from datetime import datetime,timedelta
 import MySQLdb.cursors
-import json,datetime
+import json
+
 
 app = Flask(__name__)
 
@@ -67,11 +69,20 @@ def obtener_incidentes():
         incidenteList = cursor.fetchall()
         data = []
         for row in incidenteList:
-            d = {'id_incidente': row[0], 'id_equipo': row[1], 'descripcion_incidente': row[2], 'fecha_incidente': row[3], 'hora_incidente': row[4], 'distrito_incidente': row[5]}
+            fecha_incidente = row[3]
+            hora_incidente = datetime.min + row[4]
+            d = {
+                'id_incidente': row[0],
+                'id_equipo': row[1],
+                'descripcion_incidente': row[2],
+                'fecha_incidente': fecha_incidente.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+                'hora_incidente': hora_incidente.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+                'distrito_incidente': row[5]
+            }
             data.append(d)
         datos_formateados = [{k: v.strftime('%Y-%m-%d %H:%M:%S') if isinstance(v, datetime) else v for k, v in d.items()} for d in data]
         response = Response(json.dumps(datos_formateados, separators=(',', ':')), mimetype='application/json')
-        return json.dump(response)
+        return response
     except Exception as e:
         print(e)
     finally:
