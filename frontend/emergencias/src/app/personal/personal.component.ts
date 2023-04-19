@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PruebaService} from '../services/backend.service';
+import {APISService} from '../services/backend.service';
 
 @Component({
   selector: 'app-personal',
@@ -8,12 +8,27 @@ import {PruebaService} from '../services/backend.service';
 })
 export class PersonalComponent implements OnInit {
   public personal: any = [];
-  constructor(private usuariosService: PruebaService) { }
+  public personal_formateado: any = [];
+  constructor(private personalService: APISService) { }
 
   ngOnInit() {
-    this.usuariosService.obtenerUsuarios().subscribe(personal => {
-      this.personal = personal;
-      console.log(personal)
+    this.personalService.obtenerPersonal().subscribe(response => {
+      this.personal= response;
+      let personales = [];
+      let tipo;
+      for(let item of this.personal){
+        console.log(item.tipo)
+        if (item.tipo == 'P'){
+          tipo = "Personal Médico";
+        }
+        else{
+          tipo = "Conductor";
+        }
+        item.tipo = tipo;
+        personales.push(item);
+      }
+      console.log(personales)
+      this.personal_formateado = personales;
     });
   }
 }

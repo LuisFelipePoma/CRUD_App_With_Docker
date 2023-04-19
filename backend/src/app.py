@@ -49,7 +49,7 @@ def obtener_usuarios():
 def obtener_equipos():
     cursor = mysql.connection.cursor()
     try:
-        cursor.execute("SELECT * FROM personal")
+        cursor.execute("SELECT * FROM equipo")
         equipoList = cursor.fetchall()
         data = []
         for row in equipoList:

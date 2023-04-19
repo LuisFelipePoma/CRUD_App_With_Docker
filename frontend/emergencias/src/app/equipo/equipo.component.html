@@ -1,1 +1,48 @@
-<p>equipo works!</p>
+<div class="container-fluid">
+  <div class="row justify-content-center text-center " id="nav-personal">
+    <h2>Tabla de Equipo</h2>
+  </div>
+  <div class="row"></div>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="text-center">
+        <th>#</th>
+        <th>id_Conductor</th>
+        <th>id_Paramedico1</th>
+        <th>id_Paramedico2</th>
+        <th>Placa_Vehiculo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of equipo" class="text-center">
+        <td>
+          {{item.id_equipo}}
+        </td>
+        <td>
+          {{item.id_conductor}}
+        </td>
+        <td>
+          {{item.id_paramedico1}}
+        </td>
+        <td>
+          {{item.id_paramedico2}}
+        </td>
+        <td>
+          {{item.placa_vehiculo}}
+        </td>
+        <td>
+          <div class="row justify-content-around">
+            <a class="col-3 btn btn-warning " href=""><span class="material-icons">
+                edit
+              </span></a>
+
+            <a class="col-3 btn btn-danger material-icons " href=""><span class="material-icons ">
+                delete
+              </span></a>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
