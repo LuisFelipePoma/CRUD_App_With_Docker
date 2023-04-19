@@ -1,11 +1,15 @@
 .background {
   background-color: #27403D;
-  height: 15vh;
+  height: 10vh;
+}
+
+.background3 {
+  background-color: #27403D;
 }
 
 .background2 {
   background-color: #F1E4DB;
-  height: 55vh;
+  height: 60vh;
   padding: 0%;
   margin: 0;
 }
@@ -19,7 +23,12 @@
 }
 
 .btn {
-  background-color: #2B2B28;
+  background-color: #27403D;
+  color: white;
+}
+
+.btn2 {
+  background-color: #27403D;
   color: #D88F2E;
 }
 
