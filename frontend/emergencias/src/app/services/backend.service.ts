@@ -9,6 +9,6 @@ export class PruebaService {
   constructor(private http: HttpClient) { }
 
   obtenerUsuarios() {
-    return this.http.get('http://3.84.29.129:5000/personal');
+    return this.http.get('http://192.168.18.4:5000/personal');
   }
 }
