@@ -3,25 +3,21 @@ from flask_mysqldb import MySQL
 from datetime import datetime,timedelta
 import MySQLdb.cursors
 import json
+from flask_cors import CORS
 
 
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '3.83.207.102'
+app.config['MYSQL_HOST'] = '35.171.154.70'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'
 
 mysql = MySQL(app)
 
-
-@app.after_request
-def allow_cors(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    return response
+# enable CORS
+CORS(app, resources={r"/*": {"origins": ["http://localhost:4200"]}})
 
 @app.route('/')
 def init():
@@ -97,16 +93,18 @@ def insert_personal():
     response_object = {'status': 'success'}
     if request.method == 'POST':
         post_data = request.get_json(silent=True)
+        print(post_data)
         nombre_personal=post_data.get('nombre_personal')
         apellido_pat=post_data.get('apellido_pat')
         apellido_mat=post_data.get('apellido_mat')
-        Tipo_Personal=post_data.get('Tipo_Personal')
+        Tipo_Personal=post_data.get('tipo')
 
         print(nombre_personal)
         print(apellido_pat)
         print(apellido_mat)
+        print(Tipo_Personal)
 
-        sql = "INSERT INTO members(nombre_personal, apellido_pat, apellido_mat, Tipo_Personal) VALUES(%s, %s, %s, %s)"
+        sql = "INSERT INTO personal(nombre_personal, apellido_pat, apellido_mat, Tipo_Personal) VALUE(%s, %s, %s, %s)"
         data = (nombre_personal, apellido_pat, apellido_mat, Tipo_Personal)
         cursor = mysql.connection.cursor()
         cursor.execute(sql, data)

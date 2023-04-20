@@ -3,25 +3,25 @@
     <h2>Tabla de Personal</h2>
   </div>
   <div class="row"></div>
-  <button (click)="mostrarFormulario = true">Agregar personal</button>
+  <button (click)="mostrarFormulario = true;limpiarPersonal()">Agregar personal</button>
   <div *ngIf="mostrarFormulario">
     <h2>Agregar personal</h2>
-    <form (submit)="guardarPersonal()">
+    <form  [formGroup]="form" (submit)="guardarPersonal();enviarData()">
       <label>Nombre:</label>
-      <input type="text" [(ngModel)]="nombre_personal" name="nombre_personal">
-  
+      <input formControlName="nombre" type="text" [(ngModel)]="nombre_personal" name="nombre_personal">
+
       <label>Apellido paterno:</label>
-      <input type="text" [(ngModel)]="apellido_pat" name="apellido_pat">
-  
+      <input formControlName="apellido_pat" type="text" [(ngModel)]="apellido_pat" name="apellido_pat">
+
       <label>Apellido materno:</label>
-      <input type="text" [(ngModel)]="apellido_mat" name="apellidoMaterno">
-  
+      <input formControlName="apellido_mat" type="text" [(ngModel)]="apellido_mat" name="apellidoMaterno">
+
       <label>Tipo de personal:</label>
-      <select [(ngModel)]="Tipo_Personal" name="Tipo_Personal">
+      <select formControlName="tipo" [(ngModel)]="Tipo_Personal" name="Tipo_Personal">
         <option value="P">Personal médico</option>
         <option value="C">Conductor</option>
       </select>
-  
+
       <button type="submit">Guardar</button>
       <button (click)="mostrarFormulario = false">Cancelar</button>
     </form>
