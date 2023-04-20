@@ -17,7 +17,8 @@ app.config['MYSQL_DB'] = 'emerginet'
 mysql = MySQL(app)
 
 # enable CORS
-CORS(app, resources={r"/*": {"origins": ["http://localhost:4200"]}})
+
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 @app.route('/')
 def init():
@@ -108,7 +109,7 @@ def insert_personal():
         data = (nombre_personal, apellido_pat, apellido_mat, Tipo_Personal)
         cursor = mysql.connection.cursor()
         cursor.execute(sql, data)
-        mysql.connect.commit()
+        mysql.connection.commit() 
 
         response_object['message']="Successfully Added"
     return jsonify(response_object)
