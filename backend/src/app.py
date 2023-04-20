@@ -115,19 +115,26 @@ def insert_personal():
     return jsonify(response_object)
 
 ## API PARA ELIMINAR
-@app.route('/delete_personal',methods=['GET','POST'])
+@app.route('/delete_personal', methods=['GET', 'POST'])
 def delete_personal():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    response_object = {'status': 'success'}
-    post_data = request.get_json(silent=True)
-    id = post_data.get('id_personal')
-    id = str(id)
-    sql = "DELETE FROM personal WHERE id_personal = %s"
-    cursor = mysql.connection.cursor()
-    cursor.execute(sql, (id,))
-    mysql.connection.commit() 
-    response_object['message']="Successfully Eliminated"
-    return jsonify(response_object)
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        post_data = request.get_json(silent=True)
+        id = post_data.get('id_personal')
+        id = str(id)
+        sql = "DELETE FROM personal WHERE id_personal = %s"
+        cursor = mysql.connection.cursor()
+        cursor.execute(sql, (id,))
+        mysql.connection.commit() 
+        response_object['message'] = "Successfully Eliminated"
+        print(response_object)
+        return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error'}
+        response_object['message'] = f"Error al eliminar el personal: {e}"
+        print(response_object)
+        return jsonify(response_object)
 
 ## API PARA EDITAR
 # TODO

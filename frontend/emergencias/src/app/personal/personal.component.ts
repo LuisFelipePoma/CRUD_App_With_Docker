@@ -82,23 +82,30 @@ export class PersonalComponent implements OnInit {
       apellido_mat: this.form.value.apellido_mat,
       tipo: this.form.value.tipo,
     }
-   )
-   .subscribe(respuesta => {
-     console.log('Comentario enviado!!!');
+   ).subscribe(respuesta => {
+     console.log('Respuesta recibida');
      console.log(respuesta);
      this.cargarPersonal();
    })
   }
   public eliminarData(id: number) {
-    this.personalService.eliminarPersonal({
-      id_personal: id,
-    })
-      .subscribe(respuesta => {
-        console.log('Comentario eliminado!!!');
-        console.log(respuesta);
-        this.cargarPersonal();
+    try {
+      this.personalService.eliminarPersonal({
+        id_personal: id,
       })
-    this.cargarPersonal();
+        .subscribe(response => {
+          console.log('Respuesta recibida');
+          let respuesta = Object.values(response);
+          let status = respuesta.at(1);
+          let message = respuesta.at(0);
+          console.log(status)
+          if (status == "error") alert(message);
+          this.cargarPersonal();
+        });
+      this.cargarPersonal();
+    } catch (error) {
+      alert("Error enviar solicitud.");
+    }
   }
 
   public editarData(id: number) {
