@@ -86,12 +86,12 @@ def obtener_incidentes():
         cursor.close()
         
 
-## APIS PARA INSERTAR
-
+## API PARA INSERTAR
 @app.route('/insert_personal',methods=['GET','POST'])
 def insert_personal():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     response_object = {'status': 'success'}
+    print("aver")
     if request.method == 'POST':
         post_data = request.get_json(silent=True)
         print(post_data)
@@ -112,6 +112,37 @@ def insert_personal():
         mysql.connection.commit() 
 
         response_object['message']="Successfully Added"
+    return jsonify(response_object)
+
+## API PARA ELIMINAR
+@app.route('/delete_personal',methods=['GET','POST'])
+def delete_personal():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    response_object = {'status': 'success'}
+    post_data = request.get_json(silent=True)
+    id = post_data.get('id_personal')
+    id = str(id)
+    sql = "DELETE FROM personal WHERE id_personal = %s"
+    cursor = mysql.connection.cursor()
+    cursor.execute(sql, (id,))
+    mysql.connection.commit() 
+    response_object['message']="Successfully Eliminated"
+    return jsonify(response_object)
+
+## API PARA EDITAR
+# TODO
+@app.route('/edit_personal',methods=['GET','POST'])
+def edit_personal():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    response_object = {'status': 'success'}
+    post_data = request.get_json(silent=True)
+    id = post_data.get('id_personal')
+    id = str(id)
+    #sql = "DELETE FROM personal WHERE id_personal = %s"
+    cursor = mysql.connection.cursor()
+    cursor.execute(sql, (id,))
+    mysql.connection.commit() 
+    response_object['message']="Successfully Eliminated"
     return jsonify(response_object)
 
 if __name__ == '__main__':
