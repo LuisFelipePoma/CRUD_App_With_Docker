@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import {APISService} from '../services/backend.service';
 import { RestService } from '../services/rest.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
+  @ViewChild('miFormulario')
   mostrarFormulario = false;
   nombre_personal: string = '';
   apellido_pat: string = '';
@@ -29,7 +30,15 @@ export class PersonalComponent implements OnInit {
       tipo: ['']
     });
   }
-
+  public validarCampos() {
+    if (!this.nombre_personal || !this.apellido_pat || !this.apellido_mat || !this.Tipo_Personal) {
+      alert("Por favor, complete todos los campos.");
+    }
+    else {
+      this.enviarData();
+      this.guardarPersonal();
+    }
+  }
   public guardarPersonal() {
     // Envía los datos a la base de datos
     console.log('Datos enviados: ', this.nombre_personal, this.apellido_pat, this.apellido_mat, this.Tipo_Personal);
@@ -79,7 +88,29 @@ export class PersonalComponent implements OnInit {
      console.log(respuesta);
      this.cargarPersonal();
    })
-   this.cargarPersonal();
+  }
+  public eliminarData(id: number) {
+    this.personalService.eliminarPersonal({
+      id_personal: id,
+    })
+      .subscribe(respuesta => {
+        console.log('Comentario eliminado!!!');
+        console.log(respuesta);
+        this.cargarPersonal();
+      })
+    this.cargarPersonal();
+  }
+
+  public editarData(id: number) {
+    this.personalService.editarPersonal({
+      id_personal: id,
+    })
+      .subscribe(respuesta => {
+        console.log('Comentario editado!!!');
+        console.log(respuesta);
+        this.cargarPersonal();
+      })
+    this.cargarPersonal();
   }
 }
 
