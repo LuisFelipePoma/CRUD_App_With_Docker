@@ -9,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '54.159.97.219'
+app.config['MYSQL_HOST'] = '44.212.53.6'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'
