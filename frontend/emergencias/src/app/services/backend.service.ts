@@ -8,6 +8,7 @@ export class APISService {
 
   constructor(private http: HttpClient) { }
 
+  // Funciones para llamar las APIs para traer la informacion de las tablas
   obtenerPersonal() {
     return this.http.get('http://127.0.0.1:5000/personal');
   }
@@ -18,6 +19,7 @@ export class APISService {
     return this.http.get('http://127.0.0.1:5000/equipo');
   }
 
+  // Funciones para llamar las APIs para enviar informacion al backend
   enviarPersonal(body:any){
     return this.http.post("http://127.0.0.1:5000/insert_personal",body);
   }

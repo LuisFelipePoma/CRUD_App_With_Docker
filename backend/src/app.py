@@ -9,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '35.171.154.70'
+app.config['MYSQL_HOST'] = '54.159.97.219'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'
@@ -89,30 +89,36 @@ def obtener_incidentes():
 ## API PARA INSERTAR
 @app.route('/insert_personal',methods=['GET','POST'])
 def insert_personal():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    response_object = {'status': 'success'}
-    print("aver")
-    if request.method == 'POST':
-        post_data = request.get_json(silent=True)
-        print(post_data)
-        nombre_personal=post_data.get('nombre_personal')
-        apellido_pat=post_data.get('apellido_pat')
-        apellido_mat=post_data.get('apellido_mat')
-        Tipo_Personal=post_data.get('tipo')
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        print("aver")
+        if request.method == 'POST':
+            post_data = request.get_json(silent=True)
+            print(post_data)
+            nombre_personal=post_data.get('nombre_personal')
+            apellido_pat=post_data.get('apellido_pat')
+            apellido_mat=post_data.get('apellido_mat')
+            Tipo_Personal=post_data.get('tipo')
 
-        print(nombre_personal)
-        print(apellido_pat)
-        print(apellido_mat)
-        print(Tipo_Personal)
+            print(nombre_personal)
+            print(apellido_pat)
+            print(apellido_mat)
+            print(Tipo_Personal)
 
-        sql = "INSERT INTO personal(nombre_personal, apellido_pat, apellido_mat, Tipo_Personal) VALUE(%s, %s, %s, %s)"
-        data = (nombre_personal, apellido_pat, apellido_mat, Tipo_Personal)
-        cursor = mysql.connection.cursor()
-        cursor.execute(sql, data)
-        mysql.connection.commit() 
+            sql = "INSERT INTO personal(nombre_personal, apellido_pat, apellido_mat, Tipo_Personal) VALUE(%s, %s, %s, %s)"
+            data = (nombre_personal, apellido_pat, apellido_mat, Tipo_Personal)
+            cursor = mysql.connection.cursor()
+            cursor.execute(sql, data)
+            mysql.connection.commit() 
 
-        response_object['message']="Successfully Added"
-    return jsonify(response_object)
+            response_object['message']="Successfully Added"
+            return jsonify(response_object)
+    except Exception as e:
+            response_object = {'status': 'error'}
+            response_object['message'] = f"Error al insertar el personal: {e}"
+            print(response_object)
+            return jsonify(response_object)
 
 ## API PARA ELIMINAR
 @app.route('/delete_personal', methods=['GET', 'POST'])
