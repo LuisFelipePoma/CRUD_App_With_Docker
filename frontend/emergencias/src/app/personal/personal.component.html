@@ -3,7 +3,7 @@
     <h2>Tabla de Personal</h2>
   </div>
   <div class="row justify-content-lg-start ps-5 pb-3 col-sm-1">
-    <button class="btn btn-dark" (click)="mostrarFormulario = true; limpiarPersonal()"><span
+    <button class="btn btn-dark" (click)="mostrarFormulario = true; limpiarPersonal();"><span
         class="material-symbols-outlined">
         person_add
       </span></button>
@@ -70,7 +70,7 @@
         </td>
         <td>
           <div class="row justify-content-around">
-            <a class="col-3 btn btn-warning " (click)="editarData(item.id_personal)">
+            <a class="col-3 btn btn-warning " (click)="editarPersonal(item)">
               <span class="material-icons">
                 edit
               </span>

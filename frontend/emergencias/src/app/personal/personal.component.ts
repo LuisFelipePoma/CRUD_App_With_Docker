@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APISService } from '../services/backend.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-personal',
@@ -12,12 +12,14 @@ export class PersonalComponent implements OnInit {
   //---- Declaracion de variables
 
   mostrarFormulario = false; // variable para mostrar dinamicamente el forms
+  tipoEnvio!: String;
 
   // Variables para manipular los datos ingresados en el forms
-  nombre_personal: string = '';
-  apellido_pat: string = '';
-  apellido_mat: string = '';
-  Tipo_Personal: string = '';
+  id_personal!: number;
+  nombre_personal!: string;
+  apellido_pat!: string;
+  apellido_mat!: string;
+  Tipo_Personal!: string;
 
   public personal: any = []; // Variable para guardar la data que es recibida
   public form!: FormGroup; // Variables para guardar la data que se va a enviar
@@ -60,7 +62,8 @@ export class PersonalComponent implements OnInit {
   // Funcion que contiene el envio y muestra de datos del form
   public guardarPersonal() {
     // Envía los datos a la base de datos
-    this.enviarData();
+    if (this.tipoEnvio == 'editar') this.editarData(this.id_personal);
+    else this.enviarData();
 
     // Se muestra los datos enviados en la consola
     console.log(
@@ -89,13 +92,24 @@ export class PersonalComponent implements OnInit {
     this.mostrarFormulario = false;
   }
 
+  public editarPersonal(item: any) {
+    this.mostrarFormulario = true;
+    this.limpiarPersonal();
+    this.tipoEnvio = "editar"
+    let personal = Object.values(item);
+    this.id_personal = Number(personal[0]);
+    this.nombre_personal = String(personal[1]);
+    this.apellido_pat = String(personal[2]);
+    this.apellido_mat = String(personal[3]);
+  }
+
   //---- Funciones que llaman a los servicios
 
   // Funcion que llama a un servicio para obtener los datos del personal
   public cargarPersonal() {
     // Se llama a la variable del servicio y a la funcion correspondiente
-    this.personalService.obtenerPersonal().subscribe(
-      (response) => {
+    this.personalService.obtenerPersonal().subscribe({
+      next: (response) => {
         this.personal = response; // Se le asigna la respuesta del servidor a la variable para obtener la data
         let personales = []; // Variable temporal para realizar cambios en la data
 
@@ -110,11 +124,11 @@ export class PersonalComponent implements OnInit {
         }
         this.personal = personales; // Se le asigna el arreglo modificado a la variable que almacena la data en la pagina web
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         // en caso de algun error en recibir la data
         alert(error.message); // Muestra una alerta sobre el error
-      }
-    );
+      },
+    });
   }
 
   // Funcion que envia data del form al servidor para agregar un nuevo personal
@@ -208,12 +222,30 @@ export class PersonalComponent implements OnInit {
     this.personalService
       .editarPersonal({
         id_personal: id,
+        nombre_personal: this.form.value.nombre,
+        apellido_pat: this.form.value.apellido_pat,
+        apellido_mat: this.form.value.apellido_mat,
+        tipo: this.form.value.tipo,
       })
       .subscribe({
         next: (response) => {
-          console.log('Comentario editado!!!');
-          console.log(response);
-          this.cargarPersonal();
+          console.log('Personal editado enviado');
+
+          // Se limpia la respuesta en status y message
+          let respuesta = Object.values(response);
+          let status = respuesta.at(1);
+          let message = respuesta.at(0);
+
+          // Se muestra en consola la respuesta
+          console.log(status, ' => ', message);
+          if (status == 'error')
+            alert(message); // Se muestra una alerta del error del servidor
+          else {
+            message =
+              'Se edito exitosamente al personal medico seleccionado.';
+            alert(message); // Se muestra una alerta de exito
+            this.cargarPersonal(); // Se actualiza la data con los cambios realizados
+          }
         },
         error: (error: HttpErrorResponse) => {
           alert(error.message); // Se muestra una alerta del error del servidor
@@ -223,5 +255,6 @@ export class PersonalComponent implements OnInit {
           console.log('Proceso => Editar Personal => completo');
         },
       });
+      this.tipoEnvio = "";
   }
 }
