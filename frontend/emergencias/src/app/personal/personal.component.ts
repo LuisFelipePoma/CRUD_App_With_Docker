@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APISService } from '../services/backend.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpErrorResponse, HttpSentEvent } from '@angular/common/http';
+import { HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-personal',
