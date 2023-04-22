@@ -2,31 +2,61 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class APISService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  // Funciones para llamar las APIs para enviar informacion al backend
 
-  // Funciones para llamar las APIs para traer la informacion de las tablas
+  // APIS para Personal
+
+  // API para traer la informacion de las tabla
   obtenerPersonal() {
     return this.http.get('http://127.0.0.1:5000/personal');
   }
-  obtenerIncidente(){
-    return this.http.get('http://127.0.0.1:5000/incidente');
+
+  // API para enviar la informacion de un nuevo personal
+  enviarPersonal(body: any) {
+    return this.http.post('http://127.0.0.1:5000/insert_personal', body);
   }
-  obtenerEquipo(){
+
+  // API para eliminar la informacion de un nuevo personal
+  eliminarPersonal(body: any) {
+    return this.http.post('http://127.0.0.1:5000/delete_personal', body);
+  }
+
+  // API para editar la informacion de un nuevo personal
+  editarPersonal(body: any) {
+    return this.http.post('http://127.0.0.1:5000/edit_personal', body);
+  }
+
+  //---------------------------
+
+  // APIS para Equipo
+
+  // API para traer la informacion de las tabla
+  obtenerEquipo() {
     return this.http.get('http://127.0.0.1:5000/equipo');
   }
 
-  // Funciones para llamar las APIs para enviar informacion al backend
-  enviarPersonal(body:any){
-    return this.http.post("http://127.0.0.1:5000/insert_personal",body);
+  // API para enviar la informacion de un nuevo personal
+
+
+  // API para eliminar la informacion de un nuevo personal
+
+
+  // API para editar la informacion de un nuevo personal
+
+
+  //---------------------------
+
+  // APIS para Incidentes
+  obtenerIncidente() {
+    return this.http.get('http://127.0.0.1:5000/incidente');
   }
-  eliminarPersonal(body: any) {
-    return this.http.post("http://127.0.0.1:5000/delete_personal", body);
-  }
-  editarPersonal(body: any) {
-    return this.http.post("http://127.0.0.1:5000/edit_personal", body);
-  }
+
+  // API para enviar la informacion de un nuevo personal
+  // API para eliminar la informacion de un nuevo personal
+  // API para editar la informacion de un nuevo personal
 }

@@ -10,14 +10,13 @@ import { IncidentesComponent } from './incidentes/incidentes.component';
 import { EquipoComponent } from './equipo/equipo.component';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     PersonalComponent,
     HomeComponent,
     IncidentesComponent,
-    EquipoComponent
+    EquipoComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +26,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
