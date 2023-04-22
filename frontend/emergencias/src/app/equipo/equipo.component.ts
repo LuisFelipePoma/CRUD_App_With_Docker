@@ -1,26 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { APISService } from '../services/backend.service';
 
 @Component({
   selector: 'app-equipo',
   templateUrl: './equipo.component.html',
-  styleUrls: ['./equipo.component.css']
+  styleUrls: ['./equipo.component.css'],
 })
-export class EquipoComponent {
+export class EquipoComponent implements OnInit {
   public equipo: any = [];
-  public equipo_formateado: any = [];
-  constructor(private equipoService: APISService) { }
+  constructor(private equipoService: APISService) {}
 
   ngOnInit() {
-    this.equipoService.obtenerEquipo().subscribe(response => {
-      // this.equipo_formateado= response;
+    this.equipoService.obtenerEquipo().subscribe((response) => {
+      this.equipo= response;
       // let equipos = [];
-      // for(let item of this.equipo_formateado){
+      // for(let item of this.equipo){
       //   equipos.push(item);
       // }
       // console.log(equipos)
-      this.equipo = response;
-      console.log(this.equipo)
+      // this.equipo = equipos;
+      console.log(this.equipo);
     });
   }
 }

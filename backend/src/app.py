@@ -5,7 +5,7 @@ import MySQLdb.cursors
 import json
 from flask_cors import CORS
 
-
+# Inicializacion del app
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
@@ -13,19 +13,22 @@ app.config['MYSQL_HOST'] = '3.86.92.169'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'
-
 mysql = MySQL(app)
 
 # enable CORS
-
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+# ---------- Base del Backend
 
 
 @app.route('/')
 def init():
     return "DataBase Data"
 
-# APIS para enviar las tablas
+
+# -------------- APIs para enviar las tablas
+
+# API para personal
 
 
 @app.route('/personal')
@@ -45,6 +48,8 @@ def obtener_usuarios():
     finally:
         cursor.close()
 
+# API para equipo
+
 
 @app.route('/equipo')
 def obtener_equipos():
@@ -62,6 +67,8 @@ def obtener_equipos():
         print(e)
     finally:
         cursor.close()
+
+# API para incidente
 
 
 @app.route('/incidente')
@@ -94,13 +101,14 @@ def obtener_incidentes():
         cursor.close()
 
 
-# API PARA INSERTAR
+# ----------- APIs PARA INSERTAR
+
+# API para personal
 @app.route('/insert_personal', methods=['GET', 'POST'])
 def insert_personal():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         response_object = {'status': 'success'}
-        print("aver")
         if request.method == 'POST':
             post_data = request.get_json(silent=True)
             print(post_data)
@@ -128,9 +136,10 @@ def insert_personal():
         print(response_object)
         return jsonify(response_object)
 
-# API PARA ELIMINAR
 
+# ------------- API PARA ELIMINAR
 
+# API para personal
 @app.route('/delete_personal', methods=['GET', 'POST'])
 def delete_personal():
     try:
@@ -152,7 +161,49 @@ def delete_personal():
         print(response_object)
         return jsonify(response_object)
 
-# API PARA EDITAR
+# API para equipo
+
+# API para incidente
+
+
+@app.route('/insert_incidente', methods=['GET', 'POST'])
+def insert_incidente():
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        if request.method == 'POST':
+            post_data = request.get_json(silent=True)
+            print(post_data)
+            id_equipo = post_data.get('id_equipo')
+            descripcion_incidente = post_data.get('descripcion_incidente')
+            fecha_incidente = post_data.get('fecha_incidente')
+            hora_incidente = post_data.get('hora_incidente')
+            distrito_incidente = post_data.get('distrito_incidente')
+
+            print(id_equipo)
+            print(descripcion_incidente)
+            print(fecha_incidente)
+            print(hora_incidente)
+            print(distrito_incidente)
+
+            sql = "INSERT INTO incidente(id_equipo, descripcion_incidente, fecha_incidente, hora_incidente,distrito_incidente) VALUE(%s, %s, %s, %s, %s);"
+            data = (id_equipo, descripcion_incidente, fecha_incidente,
+                    hora_incidente, distrito_incidente)
+            cursor = mysql.connection.cursor()
+            cursor.execute(sql, data)
+            mysql.connection.commit()
+
+            response_object['message'] = "Successfully Added"
+            return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error'}
+        response_object['message'] = f"Error al insertar el incidente: {e}"
+        print(response_object)
+        return jsonify(response_object)
+
+# --------- API PARA EDITAR
+
+# API para personal
 
 
 @app.route('/edit_personal', methods=['GET', 'POST'])
@@ -203,6 +254,11 @@ def edit_personal():
         print(response_object)
         return jsonify(response_object)
 
+# API para equipo
 
+# API para incidente
+
+
+# ---------------- MAIN ---------------------
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

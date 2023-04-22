@@ -2,6 +2,45 @@
   <div class="row justify-content-center text-center " id="nav-incidentes">
     <h2>Tabla de Incidentes</h2>
   </div>
+  <div class="row justify-content-lg-start ps-5 pb-3 col-sm-1">
+    <button class="btn btn-dark" (click)="mostrarFormulario = true; limpiarIncidentes();"><span
+        class="material-symbols-outlined">
+        person_add
+      </span></button>
+  </div>
+  <div *ngIf="mostrarFormulario" class="m-2 border" id="formulario-personal">
+    <form (submit)="validarCampos()">
+
+      <div class="mb-3 ">
+        <label for="nombre">id_equipo:</label>
+        <input class="form-control me-4 ms-3" id="nombre" type="text" [(ngModel)]="id_equipo" name="id_equipo"
+          placeholder="Ingrese el nombre del personal">
+      </div>
+      <div class="mb-3 ">
+        <label>Descripcion:</label>
+        <input class="form-control me-4 ms-3" type="text" [(ngModel)]="descripcion_incidente" name="descripcion_incidente"
+          placeholder="Ingrese el apellido paterno del personal">
+      </div>
+      <div class="mb-3">
+        <label for="fecha_incidente" class="col-sm-3 col-form-label">Fecha del incidente:</label>
+        <input type="date" class="form-control" id="fecha_incidente" [(ngModel)]="fecha_incidente "
+          name="fecha_incidente">
+      </div>
+      <div class="mb-3">
+        <label for="hora_incidente" class="col-sm-3 col-form-label">Hora del incidente:</label>
+        <input type="time" class="form-control" id="hora_incidente" [(ngModel)]="hora_incidente" name="hora_incidente">
+      </div>
+      <div class="mb-3">
+        <label>Distrtio:</label>
+        <input class="form-control me-4 ms-3" type="text" [(ngModel)]="distrito_incidente" name="distrito_incidente"
+          placeholder="Ingrese el apellido materno del personal">
+      </div>
+      <div class="mb-3 ">
+        <button class="btn btn-primary me-4 ms-3" type="submit">Guardar</button>
+        <button class="btn btn-secondary" (click)="mostrarFormulario = false">Cancelar</button>
+      </div>
+    </form>
+  </div>
   <div class="row justify-content-end">
     <div class="col-md-6">
       <div class="input-group mb-3 p-3 ">
@@ -18,6 +57,7 @@
     <thead>
       <tr class="text-center">
         <th>#</th>
+        <th>id_equipo</th>
         <th>Descripcion</th>
         <th>Fecha del Incidente</th>
         <th>Hora del Incidente</th>
@@ -29,6 +69,9 @@
       <tr *ngFor="let item of incidentes " class="text-center" style="padding-top: 14rem;">
         <td>
           {{item.id_incidente}}
+        </td>
+        <td>
+          {{item.id_equipo}}
         </td>
         <td>
           {{item.descripcion_incidente}}
@@ -48,7 +91,7 @@
                 edit
               </span></a>
             <p></p>
-            <a class="col-3 btn btn-danger material-icons " ><span class="material-icons ">
+            <a class="col-3 btn btn-danger material-icons "><span class="material-icons ">
                 delete
               </span></a>
           </div>

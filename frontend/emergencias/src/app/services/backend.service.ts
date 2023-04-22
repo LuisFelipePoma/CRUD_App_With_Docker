@@ -21,12 +21,12 @@ export class APISService {
     return this.http.post('http://127.0.0.1:5000/insert_personal', body);
   }
 
-  // API para eliminar la informacion de un nuevo personal
+  // API para eliminar la informacion de un personal
   eliminarPersonal(body: any) {
     return this.http.post('http://127.0.0.1:5000/delete_personal', body);
   }
 
-  // API para editar la informacion de un nuevo personal
+  // API para editar la informacion de un personal
   editarPersonal(body: any) {
     return this.http.post('http://127.0.0.1:5000/edit_personal', body);
   }
@@ -43,10 +43,10 @@ export class APISService {
   // API para enviar la informacion de un nuevo personal
 
 
-  // API para eliminar la informacion de un nuevo personal
+  // API para eliminar la informacion de un personal
 
 
-  // API para editar la informacion de un nuevo personal
+  // API para editar la informacion de un personal
 
 
   //---------------------------
@@ -57,6 +57,9 @@ export class APISService {
   }
 
   // API para enviar la informacion de un nuevo personal
-  // API para eliminar la informacion de un nuevo personal
-  // API para editar la informacion de un nuevo personal
+  enviarIncidente(body: any) {
+    return this.http.post('http://127.0.0.1:5000/insert_incidente', body);
+  }
+  // API para eliminar la informacion de un personal
+  // API para editar la informacion de un personal
 }
