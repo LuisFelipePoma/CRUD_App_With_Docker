@@ -195,7 +195,7 @@ def edit_personal():
         cursor.execute(sql, (Tipo_Personal, id))
 
         mysql.connection.commit()
-        response_object['message'] = "Successfully Eliminated"
+        response_object['message'] = "Successfully Edited"
         return jsonify(response_object)
     except Exception as e:
         response_object = {'status': 'error'}
