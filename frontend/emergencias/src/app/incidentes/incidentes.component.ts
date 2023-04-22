@@ -37,6 +37,7 @@ export class IncidentesComponent implements OnInit {
 
   // Esta funcion valida que los campos del form esten completas para poder enviar la informacion
   public validarCampos() {
+    // Console.logs para poder ver si se captura la data
     console.log(this.id_equipo);
     console.log(this.descripcion_incidente);
     console.log(this.fecha_incidente);
@@ -96,15 +97,17 @@ export class IncidentesComponent implements OnInit {
   // Funcion que lee el textbox y filtra la informacion
   public filtrarIncidentes() {
     if (this.busqueda === '') {
-      this.cargarIncidentes();
+      this.cargarIncidentes(); // Si la busqueda es nula se vuelve a cargar toda la data
     } else {
       this.incidentes = this.incidentes.filter((incidente: any) => {
+        // Mediante variables auxiliares se captura los datos de cada elemento
         const termino = this.busqueda.toLowerCase();
         const descripcion = incidente.descripcion_incidente.toLowerCase();
         const fecha = incidente.fecha_incidente.toLowerCase();
         const hora = incidente.hora_incidente.toLowerCase();
         const distrito = incidente.distrito_incidente.toLowerCase();
         return (
+          // Con esos mismo se compara si hay similitudes
           descripcion.includes(termino) ||
           fecha.includes(termino) ||
           hora.includes(termino) ||
@@ -115,8 +118,8 @@ export class IncidentesComponent implements OnInit {
   }
   // Funcion que limpia el textbox y recarga la informacion sin filtrar
   public limpiarBusqueda() {
-    this.busqueda = '';
-    this.cargarIncidentes();
+    this.busqueda = ''; // Limpia el buscador
+    this.cargarIncidentes(); // Vuelve a cargar los datos iniciales
   }
 
   //--------> FUNCIONES PARA MANEJAR LAS APIS
