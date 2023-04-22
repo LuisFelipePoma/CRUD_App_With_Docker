@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { IncidentesComponent } from './incidentes/incidentes.component';
 import { EquipoComponent } from './equipo/equipo.component';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

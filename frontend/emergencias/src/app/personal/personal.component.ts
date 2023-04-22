@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { APISService } from '../services/backend.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -22,31 +21,25 @@ export class PersonalComponent implements OnInit {
   Tipo_Personal!: string;
 
   public personal: any = []; // Variable para guardar la data que es recibida
-  public form!: FormGroup; // Variables para guardar la data que se va a enviar
 
   //---- Funciones ejecutadas al cargar la pagina
 
   constructor(
     private personalService: APISService, // Se inicializan los servicios de APIs
-    private formBuilder: FormBuilder // Se inicializa la clase para guardar los datos del form
   ) {}
 
   ngOnInit(): void {
     this.cargarPersonal(); // Se recibe la informacion de la base de datos
-    this.form = this.formBuilder.group({
-      // se crea el el grupo del forms
-      // Se crean las variables para guardar la data del forms
-      nombre: [''],
-      apellido_pat: [''],
-      apellido_mat: [''],
-      tipo: [''],
-    });
   }
 
   //---- Funciones que se usaran en la funcionalidad de la pagina
 
   // Esta funcion valida que los campos del form esten completas para poder enviar la informacion
   public validarCampos() {
+    console.log(this.nombre_personal);
+    console.log(this.apellido_pat);
+    console.log(this.apellido_mat);
+    console.log(this.Tipo_Personal);
     if (
       !this.nombre_personal ||
       !this.apellido_pat ||
@@ -95,7 +88,7 @@ export class PersonalComponent implements OnInit {
   public editarPersonal(item: any) {
     this.mostrarFormulario = true;
     this.limpiarPersonal();
-    this.tipoEnvio = "editar"
+    this.tipoEnvio = 'editar';
     let personal = Object.values(item);
     this.id_personal = Number(personal[0]);
     this.nombre_personal = String(personal[1]);
@@ -137,10 +130,10 @@ export class PersonalComponent implements OnInit {
     this.personalService
       .enviarPersonal({
         // La informacion se envia en formato JSON
-        nombre_personal: this.form.value.nombre,
-        apellido_pat: this.form.value.apellido_pat,
-        apellido_mat: this.form.value.apellido_mat,
-        tipo: this.form.value.tipo,
+        nombre_personal: this.nombre_personal,
+        apellido_pat: this.apellido_pat,
+        apellido_mat: this.apellido_mat,
+        tipo: this.Tipo_Personal,
       })
       .subscribe({
         next: (response) => {
@@ -160,9 +153,9 @@ export class PersonalComponent implements OnInit {
           else {
             message =
               'Se agrego exitosamente el personal medico : ' +
-              this.form.value.nombre +
+              this.nombre_personal +
               ' ' +
-              this.form.value.apellido_pat +
+              this.apellido_pat +
               '.';
             alert(message); // Se muestra una alerta de exito
             this.cargarPersonal(); // Se actualiza la data con los cambios realizados
@@ -222,10 +215,10 @@ export class PersonalComponent implements OnInit {
     this.personalService
       .editarPersonal({
         id_personal: id,
-        nombre_personal: this.form.value.nombre,
-        apellido_pat: this.form.value.apellido_pat,
-        apellido_mat: this.form.value.apellido_mat,
-        tipo: this.form.value.tipo,
+        nombre_personal: this.nombre_personal,
+        apellido_pat: this.apellido_pat,
+        apellido_mat: this.apellido_mat,
+        tipo: this.Tipo_Personal,
       })
       .subscribe({
         next: (response) => {
@@ -241,8 +234,7 @@ export class PersonalComponent implements OnInit {
           if (status == 'error')
             alert(message); // Se muestra una alerta del error del servidor
           else {
-            message =
-              'Se edito exitosamente al personal medico seleccionado.';
+            message = 'Se edito exitosamente al personal medico seleccionado.';
             alert(message); // Se muestra una alerta de exito
             this.cargarPersonal(); // Se actualiza la data con los cambios realizados
           }
@@ -255,6 +247,6 @@ export class PersonalComponent implements OnInit {
           console.log('Proceso => Editar Personal => completo');
         },
       });
-      this.tipoEnvio = "";
+    this.tipoEnvio = '';
   }
 }

@@ -8,28 +8,29 @@
         person_add
       </span></button>
   </div>
-  <div *ngIf="mostrarFormulario" class="m-2 border">
-    <form [formGroup]="form" (submit)="validarCampos()">
+  <div *ngIf="mostrarFormulario" class="m-2 border" id = "formulario-personal">
+    <form (submit)="validarCampos()">
 
       <div class="mb-3 ">
         <label for="nombre">Nombre:</label>
-        <input class="form-control me-4 ms-3" id="nombre" formControlName="nombre" type="text"
+        <input class="form-control me-4 ms-3" id="nombre" type="text"
           [(ngModel)]="nombre_personal" name="nombre_personal" placeholder="Ingrese el nombre del personal">
       </div>
       <div class="mb-3 ">
         <label>Apellido paterno:</label>
-        <input class="form-control me-4 ms-3" formControlName="apellido_pat" type="text" [(ngModel)]="apellido_pat"
+        <input class="form-control me-4 ms-3" type="text" [(ngModel)]="apellido_pat"
           name="apellido_pat" placeholder="Ingrese el apellido paterno del personal">
       </div>
       <div class="mb-3">
         <label>Apellido materno:</label>
-        <input class="form-control me-4 ms-3" formControlName="apellido_mat" type="text" [(ngModel)]="apellido_mat"
+        <input class="form-control me-4 ms-3" type="text" [(ngModel)]="apellido_mat"
           name="apellidoMaterno" placeholder="Ingrese el apellido materno del personal">
       </div>
 
       <div class="mb-3">
         <label for="Tipo_Personal">Tipo de personal:</label>
-        <select class="form-select me-4 ms-3" formControlName="tipo" [(ngModel)]="Tipo_Personal" id="Tipo_Personal">
+        <select class="form-select me-4 ms-3" [(ngModel)]="Tipo_Personal" name = "Tipo_Personal">
+          <option value="" selected disabled>Selecciona ...</option>
           <option value="P">Personal médico</option>
           <option value="C">Conductor</option>
         </select>
@@ -70,12 +71,12 @@
         </td>
         <td>
           <div class="row justify-content-around">
-            <a class="col-3 btn btn-warning " (click)="editarPersonal(item)">
+            <a class="col-3 btn btn-warning " (click)="editarPersonal(item)" >
               <span class="material-icons">
                 edit
               </span>
             </a>
-            <a class="col-3 btn btn-danger material-icons " (click)="eliminarData(item.id_personal)">
+            <a class="col-3 btn btn-danger material-icons "  (click)="eliminarData(item.id_personal)">
               <span class="material-icons ">
                 delete
               </span>
