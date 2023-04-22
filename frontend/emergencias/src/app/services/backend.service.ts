@@ -24,9 +24,9 @@ export class APISService {
     return this.http.post("http://127.0.0.1:5000/insert_personal",body);
   }
   eliminarPersonal(body: any) {
-    return this.http.post("http://192.168.18.4:5000/delete_personal", body);
+    return this.http.post("http://127.0.0.1:5000/delete_personal", body);
   }
   editarPersonal(body: any) {
-    return this.http.post("http://192.168.18.4:5000/edit_personal", body);
+    return this.http.post("http://127.0.0.1:5000/edit_personal", body);
   }
 }
