@@ -40,26 +40,31 @@ export class APISService {
     return this.http.get('http://127.0.0.1:5000/equipo');
   }
 
-  // API para enviar la informacion de un nuevo personal
+  // API para enviar la informacion de un nuevo equipo
 
 
-  // API para eliminar la informacion de un personal
+  // API para eliminar la informacion de un equipo
 
 
-  // API para editar la informacion de un personal
+  // API para editar la informacion de un equipo
 
 
   //---------------------------
 
   // APIS para Incidentes
+
+  // API para traer la informacion de las tabla
   obtenerIncidente() {
     return this.http.get('http://127.0.0.1:5000/incidente');
   }
 
-  // API para enviar la informacion de un nuevo personal
+  // API para enviar la informacion de un nuevo incidente
   enviarIncidente(body: any) {
     return this.http.post('http://127.0.0.1:5000/insert_incidente', body);
   }
-  // API para eliminar la informacion de un personal
-  // API para editar la informacion de un personal
+  // API para eliminar la informacion de un incidente
+  eliminarIncidente(body: any) {
+    return this.http.post('http://127.0.0.1:5000/delete_incidente', body);
+  }
+  // API para editar la informacion de un incidente
 }

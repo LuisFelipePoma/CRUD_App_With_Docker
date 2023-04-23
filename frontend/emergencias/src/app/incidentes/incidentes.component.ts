@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APISService } from '../services/backend.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-incidentes',
@@ -203,6 +202,45 @@ export class IncidentesComponent implements OnInit {
         complete: () => {
           // El método complete() se llama cuando el observable se completa
           console.log('Proceso => Añadir Personal => completo');
+        },
+      });
+  }
+  // Funcion que envia data del form al servidor para eliminar un personal
+  public eliminarData(id: number) {
+    // Se llama a la variable del servicio y a la funcion correspondiente
+    this.incidenteService
+      .eliminarIncidente({
+        id_incidente: id, //  Se envia el id del personal a eliminar
+      })
+      .subscribe({
+        next: (response) => {
+          console.log('Respuesta recibida'); // Se recibe una respuesta del servidor
+
+          // Se limpia la respuesta en status y message
+          let respuesta = Object.values(response);
+          let status = respuesta.at(1);
+          let message = respuesta.at(0);
+
+          // Se muestra en consola la respuesta
+          console.log(status, ' => ', message);
+
+          if (status == 'error')
+            alert(message); // Se muestra una alerta del error del servidor
+          else {
+            message =
+              'Se elimino exitosamente al personal medico seleccionado.';
+            alert(message); // Se muestra una alerta de exito
+            this.cargarIncidentes(); // Se actualiza la data con los cambios realizados
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          // En caso de algun error en enviar la data salta un error
+          alert(error.message); // Se muestra una alerta del mensaje del error
+          console.log(error); // se muestra en consola el error
+        },
+        complete: () => {
+          // El método complete() se llama cuando el observable se completa
+          console.log('Proceso => Eliminar Incidente => completo');
         },
       });
   }
