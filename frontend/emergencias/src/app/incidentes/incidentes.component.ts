@@ -11,7 +11,7 @@ import { empty } from 'rxjs';
 export class IncidentesComponent implements OnInit {
   //---- Declaracion de variables
 
-  mostrarFormulario = false; // variable para mostrar dinamicamente el forms
+  mostrarFormulario: boolean = false; // variable para mostrar dinamicamente el forms
   tipoEnvio!: String;
 
   // Variables para manipular los datos ingresados en el forms
