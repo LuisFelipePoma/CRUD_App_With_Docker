@@ -150,12 +150,16 @@ export class IncidentesComponent implements OnInit {
             day: 'numeric',
           });
           item.fecha_incidente = dateFormat;
-          const timeObject = new Date(item.hora_incidente);
-          item.hora_incidente = timeObject.toLocaleTimeString([], {
+          let fecha = item.hora_incidente;
+          fecha = '000' + fecha;
+          const hora = new Date(fecha);
+          const horaFormateada = hora.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true,
           });
+          console.log(horaFormateada);
+          item.hora_incidente = horaFormateada;
           incidentes.push(item);
         }
         console.log(incidentes);
@@ -240,8 +244,7 @@ export class IncidentesComponent implements OnInit {
           if (status == 'error')
             alert(message); // Se muestra una alerta del error del servidor
           else {
-            message =
-              'Se elimino exitosamente al incidente seleccionado.';
+            message = 'Se elimino exitosamente al incidente seleccionado.';
             alert(message); // Se muestra una alerta de exito
             this.cargarIncidentes(); // Se actualiza la data con los cambios realizados
           }
