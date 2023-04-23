@@ -151,6 +151,7 @@ export class IncidentesComponent implements OnInit {
           });
           item.fecha_incidente = dateFormat;
           let fecha = item.hora_incidente;
+          // fecha = '000' + fecha;
           const hora = new Date(fecha);
           const horaFormateada = hora.toLocaleTimeString([], {
             hour: '2-digit',
