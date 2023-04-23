@@ -59,12 +59,13 @@ export class IncidentesComponent implements OnInit {
   // Funcion que contiene el envio y muestra de datos del form
   public guardarIncidentes() {
     // Envía los datos a la base de datos
-    // if (this.tipoEnvio == 'editar') this.editarData(this.id_personal);
-    // else this.enviarData();
-    this.enviarData();
+    if (this.tipoEnvio == 'editar') this.editarData(this.id_incidente);
+    else this.enviarData();
+
     // Se muestra los datos enviados en la consola
     console.log(
       'Datos enviados: ',
+      this.id_incidente,
       this.id_equipo,
       this.descripcion_incidente,
       this.fecha_incidente,
@@ -74,6 +75,18 @@ export class IncidentesComponent implements OnInit {
 
     // Oculta el formulario emergente
     this.mostrarFormulario = false;
+  }
+  public editarIncidente(item: any) {
+    this.mostrarFormulario = true;
+    this.limpiarIncidentes();
+    this.tipoEnvio = 'editar';
+    let personal = Object.values(item);
+    this.id_incidente = Number(personal[0]);
+    this.id_equipo = Number(personal[1]);
+    this.descripcion_incidente = String(personal[2]);
+    this.fecha_incidente = String(personal[3]);
+    this.hora_incidente = String(personal[4]);
+    this.distrito_incidente = String(personal[5]);
   }
 
   // Funcion que al ser llamada limpia los campos del form
@@ -153,7 +166,7 @@ export class IncidentesComponent implements OnInit {
       },
       complete: () => {
         // El método complete() se llama cuando el observable se completa
-        console.log('Proceso => Cargar Incidetnes => completo');
+        console.log('Proceso => Cargar Incidentes => completo');
       },
     });
   }
@@ -164,6 +177,7 @@ export class IncidentesComponent implements OnInit {
     this.incidenteService
       .enviarIncidente({
         // La informacion se envia en formato JSON
+        id_incidente: this.id_incidente,
         id_equipo: this.id_equipo,
         descripcion_incidente: this.descripcion_incidente,
         fecha_incidente: this.fecha_incidente,
@@ -228,7 +242,7 @@ export class IncidentesComponent implements OnInit {
             alert(message); // Se muestra una alerta del error del servidor
           else {
             message =
-              'Se elimino exitosamente al personal medico seleccionado.';
+              'Se elimino exitosamente al incidente seleccionado.';
             alert(message); // Se muestra una alerta de exito
             this.cargarIncidentes(); // Se actualiza la data con los cambios realizados
           }
@@ -243,5 +257,45 @@ export class IncidentesComponent implements OnInit {
           console.log('Proceso => Eliminar Incidente => completo');
         },
       });
+  }
+  // Funcion que envia data del form al servidor para editar un personal
+  public editarData(id: number) {
+    this.incidenteService
+      .editarIncidente({
+        id_incidente: id,
+        id_equipo: this.id_equipo,
+        descripcion_incidente: this.descripcion_incidente,
+        fecha_incidente: this.fecha_incidente,
+        hora_incidente: this.hora_incidente,
+        distrito_incidente: this.distrito_incidente,
+      })
+      .subscribe({
+        next: (response) => {
+          console.log('Incidente editado enviado');
+
+          // Se limpia la respuesta en status y message
+          let respuesta = Object.values(response);
+          let status = respuesta.at(1);
+          let message = respuesta.at(0);
+
+          // Se muestra en consola la respuesta
+          console.log(status, ' => ', message);
+          if (status == 'error')
+            alert(message); // Se muestra una alerta del error del servidor
+          else {
+            message = 'Se edito exitosamente al incidente seleccionado.';
+            alert(message); // Se muestra una alerta de exito
+            this.cargarIncidentes(); // Se actualiza la data con los cambios realizados
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message); // Se muestra una alerta del error del servidor
+        },
+        complete: () => {
+          // El método complete() se llama cuando el observable se completa
+          console.log('Proceso => Editar Incidente => completo');
+        },
+      });
+    this.tipoEnvio = '';
   }
 }

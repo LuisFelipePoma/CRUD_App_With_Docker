@@ -205,6 +205,8 @@ def delete_personal():
 # API para equipo
 
 # API para incidente
+
+
 @app.route('/delete_incidente', methods=['GET', 'POST'])
 def delete_incidente():
     try:
@@ -283,6 +285,67 @@ def edit_personal():
 # API para equipo
 
 # API para incidente
+
+
+@app.route('/edit_incidente', methods=['GET', 'POST'])
+def edit_incidente():
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        post_data = request.get_json(silent=True)
+        print(post_data)
+        id = post_data.get('id_incidente')
+        id_equipo = post_data.get('id_equipo')
+        descripcion_incidente = post_data.get('descripcion_incidente')
+        fecha_incidente = post_data.get('fecha_incidente')
+        hora_incidente = post_data.get('hora_incidente')
+        distrito_incidente = post_data.get('distrito_incidente')
+        id = str(id)
+        print(id)
+        print(id_equipo)
+        print(descripcion_incidente)
+        print(fecha_incidente)
+        print(hora_incidente)
+        print(distrito_incidente)
+        cursor = mysql.connection.cursor()
+        # Query para aditar el id del equipo
+        sql = """
+        UPDATE incidente SET id_equipo = %s WHERE id_incidente = %s;
+        """
+        cursor.execute(sql, (id_equipo, id))
+
+        # Query para aditar la descripcion del incidente
+        sql = """
+        UPDATE incidente SET descripcion_incidente = %s WHERE id_incidente = %s;
+        """
+        cursor.execute(sql, (descripcion_incidente, id))
+
+        # Query para aditar la fecha del incidente
+        sql = """
+        UPDATE incidente SET fecha_incidente = %s WHERE id_incidente = %s;
+        """
+        cursor.execute(sql, (fecha_incidente, id))
+
+        # Query para aditar la hora del incidente
+        sql = """
+        UPDATE incidente SET hora_incidente = %s WHERE id_incidente = %s;
+        """
+        cursor.execute(sql, (hora_incidente, id))
+
+        # Query para aditar el distrito del incidente
+        sql = """
+        UPDATE incidente SET distrito_incidente = %s WHERE id_incidente = %s;
+        """
+        cursor.execute(sql, (distrito_incidente, id))
+
+        mysql.connection.commit()
+        response_object['message'] = "Successfully Edited"
+        return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error'}
+        response_object['message'] = f"Error al editar el incidente : {e}"
+        print(response_object)
+        return jsonify(response_object)
 
 
 # ---------------- MAIN ---------------------

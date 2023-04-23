@@ -21,7 +21,7 @@ export class PersonalComponent implements OnInit {
   Tipo_Personal!: string;
 
   public personal: any = []; // Variable para guardar la data que es recibida
-
+  busqueda: string = ''; // Almacenara el criterio a filtar en la tabla
   //---- Funciones ejecutadas al cargar la pagina
 
   constructor(
@@ -94,6 +94,36 @@ export class PersonalComponent implements OnInit {
     this.nombre_personal = String(personal[1]);
     this.apellido_pat = String(personal[2]);
     this.apellido_mat = String(personal[3]);
+  }
+  //--------> FUNCIONES DE BUSQUEDA POR FILTROS
+
+  // Funcion que lee el textbox y filtra la informacion
+  public filtrarIncidentes() {
+    if (this.busqueda === '') {
+      this.cargarPersonal(); // Si la busqueda es nula se vuelve a cargar toda la data
+    } else {
+      this.personal = this.personal.filter((personal: any) => {
+        // Mediante variables auxiliares se captura los datos de cada elemento
+        const termino = this.busqueda.toLowerCase();
+        console.log(personal);
+        const nombre = personal.nombre.toLowerCase();
+        const apellido_pat = personal['apellido-pat'].toLowerCase();
+        const apellido_mat = personal['apellido-mat'].toLowerCase();
+        const tipo = personal.tipo.toLowerCase();
+        return (
+          // Con esos mismo se compara si hay similitudes
+          nombre.includes(termino) ||
+          apellido_pat.includes(termino) ||
+          apellido_mat.includes(termino) ||
+          tipo.includes(termino)
+        );
+      });
+    }
+  }
+  // Funcion que limpia el textbox y recarga la informacion sin filtrar
+  public limpiarBusqueda() {
+    this.busqueda = ''; // Limpia el buscador
+    this.cargarPersonal(); // Vuelve a cargar los datos iniciales
   }
 
   //---- Funciones que llaman a los servicios
