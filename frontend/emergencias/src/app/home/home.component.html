@@ -1,32 +1,4 @@
-<nav class="navbar navbar-dark background ps-4">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
-      aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <p class="titulo fs-1 mx-auto">Emerginet</p>
-  </div>
-</nav>
-
-<div class="collapse dropdown-menu-end" id="navbarToggleExternalContent">
-  <div class="texto flex-column">
-    <div class="background3 d-flex">
-      <div class="col-sm-1 pt-2">
-        <button [routerLink]="['/incidente']" type="button"
-          class="btn background3 fs-4 ms-4 border border-dark">Incidentes</button>
-      </div>
-      <div class="col-sm-1 pt-2">
-        <button [routerLink]="['/equipo']" type="button"
-          class="btn background3 fs-4 ms-4 border border-dark">Equipo</button>
-      </div>
-      <div class="col-sm-1 pt-2">
-        <button [routerLink]="['/personal']" class="btn background3 fs-4 ms-4 border border-dark">Personal</button>
-      </div>
-      <br>
-    </div>
-  </div>
-</div>
-
+<app-navbar [titulo]="'Emerginet'"></app-navbar>
 
 <div class="texto">
   <div class="background2">

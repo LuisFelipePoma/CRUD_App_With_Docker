@@ -5,7 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class APISService {
-  constructor(private http: HttpClient) {}
+  private readonly IP = 'http://192.168.1.2:5000'; // Variable que guarda la IP
+
+  constructor(private http: HttpClient) { }
 
   // Funciones para llamar las APIs para enviar informacion al backend
 
@@ -13,22 +15,22 @@ export class APISService {
 
   // API para traer la informacion de las tabla
   obtenerPersonal() {
-    return this.http.get('http://44.201.194.132:5000/personal');
+    return this.http.get(`${this.IP}/personal`);
   }
 
   // API para enviar la informacion de un nuevo personal
   enviarPersonal(body: any) {
-    return this.http.post('http://44.201.194.132:5000/insert_personal', body);
+    return this.http.post(`${this.IP}/insert_personal`, body);
   }
 
   // API para eliminar la informacion de un personal
   eliminarPersonal(body: any) {
-    return this.http.post('http://44.201.194.132:5000/delete_personal', body);
+    return this.http.post(`${this.IP}/delete_personal`, body);
   }
 
   // API para editar la informacion de un personal
   editarPersonal(body: any) {
-    return this.http.post('http://44.201.194.132:5000/edit_personal', body);
+    return this.http.post(`${this.IP}/edit_personal`, body);
   }
 
   //---------------------------
@@ -37,21 +39,21 @@ export class APISService {
 
   // API para traer la informacion de las tabla
   obtenerEquipo() {
-    return this.http.get('http://44.201.194.132:5000/equipo');
+    return this.http.get(`${this.IP}/equipo`);
   }
 
   // API para enviar la informacion de un nuevo equipo
   enviarEquipo(body: any) {
-    return this.http.post('http://44.201.194.132:5000/insert_equipo', body);
+    return this.http.post(`${this.IP}/insert_equipo`, body);
   }
 
   // API para eliminar la informacion de un equipo
   eliminarEquipo(body: any) {
-    return this.http.post('http://44.201.194.132:5000/delete_equipo', body);
+    return this.http.post(`${this.IP}/delete_equipo`, body);
   }
   // API para editar la informacion de un equipo
   editarEquipo(body: any) {
-    return this.http.post('http://44.201.194.132:5000/edit_equipo', body);
+    return this.http.post(`${this.IP}/edit_equipo`, body);
   }
 
   //---------------------------
@@ -60,19 +62,19 @@ export class APISService {
 
   // API para traer la informacion de las tabla
   obtenerIncidente() {
-    return this.http.get('http://44.201.194.132:5000/incidente');
+    return this.http.get(`${this.IP}/incidente`);
   }
 
   // API para enviar la informacion de un nuevo incidente
   enviarIncidente(body: any) {
-    return this.http.post('http://44.201.194.132:5000/insert_incidente', body);
+    return this.http.post(`${this.IP}/insert_incidente`, body);
   }
   // API para eliminar la informacion de un incidente
   eliminarIncidente(body: any) {
-    return this.http.post('http://44.201.194.132:5000/delete_incidente', body);
+    return this.http.post(`${this.IP}/delete_incidente`, body);
   }
   // API para editar la informacion de un incidente
   editarIncidente(body: any) {
-    return this.http.post('http://44.201.194.132:5000/edit_incidente', body);
+    return this.http.post(`${this.IP}/edit_incidente`, body);
   }
 }
