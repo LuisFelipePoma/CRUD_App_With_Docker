@@ -210,7 +210,7 @@ export class PersonalComponent implements OnInit {
         },
       });
   }
-
+  // Funcion que envia data del form al servidor para editar un personal
   public editarData(id: number) {
     this.personalService
       .editarPersonal({
