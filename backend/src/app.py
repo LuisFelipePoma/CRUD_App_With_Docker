@@ -138,6 +138,33 @@ def insert_personal():
 
 # API para equipo
 
+
+@app.route('/insert_equipo', methods=['GET', 'POST'])
+def insert_equipo():
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        if request.method == 'POST':
+            post_data = request.get_json(silent=True)
+            print(post_data)
+            id_conductor = post_data.get('id_conductor')
+            id_paramedico1 = post_data.get('id_paramedico1')
+            id_paramedico2 = post_data.get('id_paramedico2')
+            placa_vehiculo = post_data.get('placa_vehiculo')
+            sql = "INSERT INTO equipo(id_conductor, id_paramedico1, id_paramedico2, placa_vehiculo) VALUE(%s, %s, %s, %s);"
+            data = (id_conductor, id_paramedico1,
+                    id_paramedico2, placa_vehiculo)
+            cursor = mysql.connection.cursor()
+            cursor.execute(sql, data)
+            mysql.connection.commit()
+            response_object['message'] = "Successfully Added"
+            return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error'}
+        response_object['message'] = f"Error al insertar el incidente: {e}"
+        print(response_object)
+        return jsonify(response_object)
+
 # API para incidente
 
 
@@ -154,13 +181,6 @@ def insert_incidente():
             fecha_incidente = post_data.get('fecha_incidente')
             hora_incidente = post_data.get('hora_incidente')
             distrito_incidente = post_data.get('distrito_incidente')
-
-            print(id_equipo)
-            print(descripcion_incidente)
-            print(fecha_incidente)
-            print(hora_incidente)
-            print(distrito_incidente)
-
             sql = "INSERT INTO incidente(id_equipo, descripcion_incidente, fecha_incidente, hora_incidente,distrito_incidente) VALUE(%s, %s, %s, %s, %s);"
             data = (id_equipo, descripcion_incidente, fecha_incidente,
                     hora_incidente, distrito_incidente)
@@ -187,6 +207,7 @@ def delete_personal():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         response_object = {'status': 'success'}
         post_data = request.get_json(silent=True)
+        print(post_data)
         id = post_data.get('id_personal')
         id = str(id)
         sql = "DELETE FROM personal WHERE id_personal = %s;"
@@ -204,6 +225,28 @@ def delete_personal():
 
 # API para equipo
 
+
+@app.route('/delete_equipo', methods=['GET', 'POST'])
+def delete_equipo():
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        post_data = request.get_json(silent=True)
+        print(post_data)
+        id = str(post_data.get('id_equipo'))
+        sql = "DELETE FROM equipo WHERE id_equipo = %s;"
+        cursor = mysql.connection.cursor()
+        cursor.execute(sql, (id,))
+        mysql.connection.commit()
+        response_object['message'] = "Successfully Eliminated"
+        print(response_object)
+        return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error'}
+        response_object['message'] = f"Error al eliminar el equipo: {e}"
+        print(response_object)
+        return jsonify(response_object)
+
 # API para incidente
 
 
@@ -213,6 +256,7 @@ def delete_incidente():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         response_object = {'status': 'success'}
         post_data = request.get_json(silent=True)
+        print(post_data)
         id = post_data.get('id_incidente')
         id = str(id)
         sql = "DELETE FROM incidente WHERE id_incidente = %s;"
@@ -240,17 +284,13 @@ def edit_personal():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         response_object = {'status': 'success'}
         post_data = request.get_json(silent=True)
+        print(post_data)
         nombre_personal = post_data.get('nombre_personal')
         apellido_pat = post_data.get('apellido_pat')
         apellido_mat = post_data.get('apellido_mat')
         Tipo_Personal = post_data.get('tipo')
         id = post_data.get('id_personal')
         id = str(id)
-        print(nombre_personal)
-        print(apellido_pat)
-        print(apellido_mat)
-        print(Tipo_Personal)
-        print(id)
         cursor = mysql.connection.cursor()
         sql = """
         UPDATE personal SET nombre_personal = %s WHERE id_personal = %s;
@@ -284,6 +324,49 @@ def edit_personal():
 
 # API para equipo
 
+
+@app.route('/edit_equipo', methods=['GET', 'POST'])
+def edit_equipo():
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        response_object = {'status': 'success'}
+        post_data = request.get_json(silent=True)
+        print(post_data)
+        id = str(post_data.get('id_equipo'))
+        id_conductor = post_data.get('id_conductor')
+        id_paramedico1 = post_data.get('id_paramedico1')
+        id_paramedico2 = post_data.get('id_paramedico2')
+        placa_vehiculo = post_data.get('placa_vehiculo')
+        cursor = mysql.connection.cursor()
+        sql = """
+                UPDATE equipo SET id_conductor = %s WHERE id_equipo = %s;
+            """
+
+        cursor.execute(sql, (id_conductor, id))
+
+        sql = """
+                UPDATE equipo SET id_paramedico1 = %s WHERE id_equipo = %s;
+                """
+        cursor.execute(sql, (id_paramedico1, id))
+
+        sql = """
+                UPDATE equipo SET id_paramedico2 = %s WHERE id_equipo= %s;
+                """
+        cursor.execute(sql, (id_paramedico2, id))
+
+        sql = """
+                UPDATE equipo SET placa_vehiculo = %s WHERE id_equipo = %s;
+                """
+        cursor.execute(sql, (placa_vehiculo, id))
+
+        mysql.connection.commit()
+        response_object['message'] = "Successfully Edited"
+        return jsonify(response_object)
+    except Exception as e:
+        response_object = {'status': 'error'}
+        response_object['message'] = f"Error al editar el equipo : {e}"
+        print(response_object)
+        return jsonify(response_object)
 # API para incidente
 
 
@@ -301,12 +384,6 @@ def edit_incidente():
         hora_incidente = post_data.get('hora_incidente')
         distrito_incidente = post_data.get('distrito_incidente')
         id = str(id)
-        print(id)
-        print(id_equipo)
-        print(descripcion_incidente)
-        print(fecha_incidente)
-        print(hora_incidente)
-        print(distrito_incidente)
         cursor = mysql.connection.cursor()
         # Query para aditar el id del equipo
         sql = """

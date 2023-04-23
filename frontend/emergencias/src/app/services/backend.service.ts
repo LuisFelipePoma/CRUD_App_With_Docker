@@ -41,13 +41,18 @@ export class APISService {
   }
 
   // API para enviar la informacion de un nuevo equipo
-
+  enviarEquipo(body: any) {
+    return this.http.post('http://127.0.0.1:5000/insert_equipo', body);
+  }
 
   // API para eliminar la informacion de un equipo
-
-
+  eliminarEquipo(body: any) {
+    return this.http.post('http://127.0.0.1:5000/delete_equipo', body);
+  }
   // API para editar la informacion de un equipo
-
+  editarEquipo(body: any) {
+    return this.http.post('http://127.0.0.1:5000/edit_equipo', body);
+  }
 
   //---------------------------
 

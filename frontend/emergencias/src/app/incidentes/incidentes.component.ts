@@ -162,7 +162,7 @@ export class IncidentesComponent implements OnInit {
         this.incidentes = incidentes;
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.message); // Se muestra una alerta del error del servidor
       },
       complete: () => {
         // El método complete() se llama cuando el observable se completa
@@ -177,7 +177,6 @@ export class IncidentesComponent implements OnInit {
     this.incidenteService
       .enviarIncidente({
         // La informacion se envia en formato JSON
-        id_incidente: this.id_incidente,
         id_equipo: this.id_equipo,
         descripcion_incidente: this.descripcion_incidente,
         fecha_incidente: this.fecha_incidente,

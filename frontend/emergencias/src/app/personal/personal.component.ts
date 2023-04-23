@@ -106,12 +106,14 @@ export class PersonalComponent implements OnInit {
         // Mediante variables auxiliares se captura los datos de cada elemento
         const termino = this.busqueda.toLowerCase();
         console.log(personal);
+        const id_personal = String(personal.id_personal);
         const nombre = personal.nombre.toLowerCase();
         const apellido_pat = personal['apellido-pat'].toLowerCase();
         const apellido_mat = personal['apellido-mat'].toLowerCase();
         const tipo = personal.tipo.toLowerCase();
         return (
           // Con esos mismo se compara si hay similitudes
+          id_personal.includes(termino) ||
           nombre.includes(termino) ||
           apellido_pat.includes(termino) ||
           apellido_mat.includes(termino) ||
