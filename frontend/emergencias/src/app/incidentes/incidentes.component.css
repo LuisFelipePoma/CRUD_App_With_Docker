@@ -9,13 +9,7 @@ body{
   grid-template-rows: auto 1fr auto;
 
 }
-#nav-incidentes{
-  height: 5rem;
-  align-items: center;
-  color: #F1E4DB;
-  background-color: #27403D;;
-  margin-bottom: 1.5%;
-}
+
 
 .no-padding {
   padding: 0;
