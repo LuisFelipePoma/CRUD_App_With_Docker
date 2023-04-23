@@ -111,12 +111,11 @@ export class EquipoComponent implements OnInit {
       this.equipo = this.equipo.filter((equipo: any) => {
         // Mediante variables auxiliares se captura los datos de cada elemento
         const termino = this.busqueda.toLowerCase();
-        console.log(equipo.id_conductor);
-        let id_equipo = String(equipo.id_equipo);
-        let id_conductor = String(equipo.id_conductor);
-        let id_paramedico1 = String(equipo.id_paramedico1);
-        let id_paramedico2 = String(equipo.id_paramedico2);
-        let placa_vehiculo = equipo.placa_vehiculo.toLowerCase();
+        const id_equipo = String(equipo.id_equipo);
+        const id_conductor = String(equipo.id_conductor);
+        const id_paramedico1 = String(equipo.id_paramedico1);
+        const id_paramedico2 = String(equipo.id_paramedico2);
+        const placa_vehiculo = equipo.placa_vehiculo.toLowerCase();
         return (
           // Con esos mismo se compara si hay similitudes
           id_equipo.includes(termino) ||
