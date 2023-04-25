@@ -1,0 +1,109 @@
+<app-navbar [titulo]="'Tabla incidentes'" id="nav-incidente"></app-navbar>
+
+<div class="container-fluid pt-4">
+  <div class="row justify-content-lg-start">
+    <div class="col-6">
+      <div class="row ps-5 pb-3 col-6">
+        <button class="btn btn-dark" (click)="mostrarFormulario = true; limpiarIncidentes();"><span
+            class="material-symbols-outlined">
+            person_add
+          </span></button>
+      </div>
+      <div *ngIf="mostrarFormulario" class="border m-3 p-3" id="formulario-personal">
+        <form (submit)="validarCampos()">
+          <div class="m-3 ">
+            <label class="col-form-label">id_equipo:</label>
+            <input class="form-control " id="nombre" type="text" [(ngModel)]="id_equipo" name="id_equipo"
+              placeholder="Ingrese el ID del equipo">
+          </div>
+          <div class="m-3 ">
+            <label class="col-form-label">Descripcion:</label>
+            <input class="form-control " type="text" [(ngModel)]="descripcion_incidente" name="descripcion_incidente"
+              placeholder="Ingrese una descripcion del incidente">
+          </div>
+          <div class="row justify-content-between m-3">
+            <div class="col-6">
+              <label for="fecha_incidente" class="col-form-label">Fecha del incidente:</label>
+              <input type="date" class="form-control" id="fecha_incidente" [(ngModel)]="fecha_incidente "
+                name="fecha_incidente">
+            </div>
+            <div class="col-6">
+              <label for="hora_incidente" class="col-form-label">Hora del incidente:</label>
+              <input type="time" class="form-control" id="hora_incidente" [(ngModel)]="hora_incidente"
+                name="hora_incidente">
+            </div>
+          </div>
+          <div class="m-3">
+            <label class="col-form-label">Distrito:</label>
+            <input class="form-control " type="text" [(ngModel)]="distrito_incidente" name="distrito_incidente"
+              placeholder="Ingrese el distrito donde ocurrio el incidente">
+          </div>
+          <div class="m-3 text-md-end">
+            <button class="btn btn-primary me-4 ms-3 " type="submit">Guardar</button>
+            <button class="btn btn-secondary" (click)="mostrarFormulario = false">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-6 justify-content-end">
+      <div class="input-group mb-3  ">
+        <input type="text" class="form-control me-4" placeholder="Buscar..." [(ngModel)]="busqueda">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary me-3" type="button" (click)="filtrarIncidentes()">Buscar</button>
+          <button class="btn btn-secondary" type="reset" (click)="limpiarBusqueda()">Limpiar búsqueda</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row"></div>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="text-center">
+        <th>#</th>
+        <th>id_equipo</th>
+        <th>Descripcion</th>
+        <th>Fecha del Incidente</th>
+        <th>Hora del Incidente</th>
+        <th>Distrito del Incidente</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of incidentes " class="text-center" style="padding-top: 14rem;">
+        <td>
+          {{item.id_incidente}}
+        </td>
+        <td>
+          {{item.id_equipo}}
+        </td>
+        <td>
+          {{item.descripcion_incidente}}
+        </td>
+        <td>
+          {{item.fecha_incidente}}
+        </td>
+        <td>
+          {{item.hora_incidente}}
+        </td>
+        <td>
+          {{item.distrito_incidente}}
+        </td>
+        <td>
+          <div class="row justify-content-around">
+            <a class="col-3 btn btn-warning " href="/incidente#nav-incidente" (click)="editarIncidente(item)"><span
+                class="material-icons">
+                edit
+              </span></a>
+            <p></p>
+            <a class="col-3 btn btn-danger material-icons " (click)="eliminarData(item.id_incidente)">
+              <span class=" material-icons ">
+                delete
+              </span>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

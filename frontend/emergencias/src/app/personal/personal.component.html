@@ -1,0 +1,99 @@
+<app-navbar [titulo]="'Tabla personal'" id="nav-personal"></app-navbar>
+
+<div class="container-fluid pt-4">
+  <div class="row justify-content-lg-start">
+    <div class="col-6">
+      <div class="row ps-5 pb-3 col-6">
+        <button class="btn btn-dark" (click)="mostrarFormulario = true; limpiarPersonal();"><span
+            class="material-symbols-outlined">
+            person_add
+          </span></button>
+      </div>
+      <div *ngIf="mostrarFormulario" class="border m-3 p-3" id="formulario-personal">
+        <form (submit)="validarCampos()">
+          <div class="m-3 ">
+            <label class="col-form-label">Nombre</label>
+            <input class="form-control " id="nombre" type="text" [(ngModel)]="nombre_personal" name="id_equipo"
+              placeholder="Ingrese el nombre del personal">
+          </div>
+          <div class="m-3 ">
+            <label class="col-form-label">Apellido Paterno:</label>
+            <input class="form-control " type="text" [(ngModel)]="apellido_pat" name="descripcion_incidente"
+              placeholder="Ingrese el apellido paterno del personal">
+          </div>
+          <div class="m-3">
+            <label class="col-form-label">Apellido Materno:</label>
+            <input class="form-control " type="text" [(ngModel)]="apellido_mat" name="distrito_incidente"
+              placeholder="Ingrese el apellido materno del personal">
+          </div>
+          <div class="mb-3">
+            <label for="Tipo_Personal">Tipo de personal:</label>
+            <select class="form-select me-4 " [(ngModel)]="Tipo_Personal" name="Tipo_Personal">
+              <option value="" selected disabled>Selecciona ...</option>
+              <option value="P">Personal médico</option>
+              <option value="C">Conductor</option>
+            </select>
+          </div>
+          <div class="m-3 text-md-end">
+            <button class="btn btn-primary me-4 ms-3 " type="submit">Guardar</button>
+            <button class="btn btn-secondary" (click)="mostrarFormulario = false">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-6 justify-content-end">
+      <div class="input-group mb-3  ">
+        <input type="text" class="form-control me-4" placeholder="Buscar..." [(ngModel)]="busqueda">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary me-3" type="button" (click)="filtrarIncidentes()">Buscar</button>
+          <button class="btn btn-secondary" type="reset" (click)="limpiarBusqueda()">Limpiar búsqueda</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="text-center">
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Tipo</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of personal" class="text-center">
+        <td>
+          {{item.id_personal}}
+        </td>
+        <td>
+          {{item.nombre}}
+        </td>
+        <td>
+          {{item['apellido-pat']}}
+        </td>
+        <td>
+          {{item['apellido-mat']}}
+        </td>
+        <td>
+          {{item.tipo}}
+        </td>
+        <td>
+          <div class="row justify-content-around">
+            <a class="col-3 btn btn-warning " href="/personal#nav-personal" (click)="editarPersonal(item)">
+              <span class="material-icons">
+                edit
+              </span>
+            </a>
+            <a class="col-3 btn btn-danger material-icons " (click)="eliminarData(item.id_personal)">
+              <span class="material-icons ">
+                delete
+              </span>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

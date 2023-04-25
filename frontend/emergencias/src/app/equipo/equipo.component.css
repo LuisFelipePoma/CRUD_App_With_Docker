@@ -1,0 +1,22 @@
+body{
+  background-color: #F1E4DB;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+
+}
+#nav-equipo{
+  height: 5rem;
+  align-items: center;
+  color: #F1E4DB;
+  background-color: #27403D;;
+  margin-bottom: 1.5%;
+}
+
+.no-padding {
+  padding: 0;
+}

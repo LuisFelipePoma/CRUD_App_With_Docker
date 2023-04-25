@@ -1,0 +1,13 @@
+body {
+  background-color: #F1E4DB;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+.no-padding {
+  padding: 0;
+}
