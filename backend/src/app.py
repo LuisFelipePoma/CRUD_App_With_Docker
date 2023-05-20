@@ -70,7 +70,6 @@ def obtener_equipos():
 
 # API para incidente
 
-
 @app.route('/incidente')
 def obtener_incidentes():
     cursor = mysql.connection.cursor()
