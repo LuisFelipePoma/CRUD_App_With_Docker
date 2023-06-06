@@ -1,0 +1,11 @@
+// En la misma instancia de docker-app se trae la imagen de ngnix (143mb)
+
+docker pull nginx
+
+// Se crea el directorio donde pegaremos el build de nuestra pagina web
+
+mkdir web
+
+// Ahora se corre nuestro proyecto usamos nginx:alpine(41.5mb) en vez de nginx(143mb)
+
+docker run -d --name emerginet-web -v /home/ubuntu/web/dist/emergencias:/usr/share/nginx/html -p 80:80 nginx:alpine
