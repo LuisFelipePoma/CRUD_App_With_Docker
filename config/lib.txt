@@ -1,5 +1,2 @@
 npm install bootstrap
 npm  install @swimlane/ngx-datatable --save
-ng add angular-datatables
-npm i @types/datatables.net --save-dev
-ng add @angular/material
