@@ -9,10 +9,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '44.211.150.103'
+app.config['MYSQL_HOST'] = '44.201.112.49'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
-app.config['MYSQL_DB'] = 'sys'
+app.config['MYSQL_DB'] = 'emerginet'
 mysql = MySQL(app)
 
 # enable CORS
@@ -31,7 +31,7 @@ def init():
 # API para personal
 
 
-@app.route('/personal')
+@app.route('/personal', methods=['GET'])
 def obtener_usuarios():
     cursor = mysql.connection.cursor()
     try:
@@ -51,7 +51,7 @@ def obtener_usuarios():
 # API para equipo
 
 
-@app.route('/equipo')
+@app.route('/equipo', methods=['GET'])
 def obtener_equipos():
     cursor = mysql.connection.cursor()
     try:
@@ -70,7 +70,8 @@ def obtener_equipos():
 
 # API para incidente
 
-@app.route('/incidente')
+
+@app.route('/incidente', methods=['GET'])
 def obtener_incidentes():
     cursor = mysql.connection.cursor()
     try:
@@ -103,32 +104,31 @@ def obtener_incidentes():
 # ----------- APIs PARA INSERTAR
 
 # API para personal
-@app.route('/insert_personal', methods=['GET', 'POST'])
+@app.route('/personal', methods=['POST'])
 def insert_personal():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        response_object = {'status': 'success'}
-        if request.method == 'POST':
-            post_data = request.get_json(silent=True)
-            print(post_data)
-            nombre_personal = post_data.get('nombre_personal')
-            apellido_pat = post_data.get('apellido_pat')
-            apellido_mat = post_data.get('apellido_mat')
-            Tipo_Personal = post_data.get('tipo')
+        post_data = request.get_json(silent=True)
+        print(post_data)
+        nombre_personal = post_data.get('nombre_personal')
+        apellido_pat = post_data.get('apellido_pat')
+        apellido_mat = post_data.get('apellido_mat')
+        Tipo_Personal = post_data.get('tipo')
 
-            print(nombre_personal)
-            print(apellido_pat)
-            print(apellido_mat)
-            print(Tipo_Personal)
+        print(nombre_personal)
+        print(apellido_pat)
+        print(apellido_mat)
+        print(Tipo_Personal)
 
-            sql = "INSERT INTO personal(nombre_personal, apellido_pat, apellido_mat, Tipo_Personal) VALUE(%s, %s, %s, %s);"
-            data = (nombre_personal, apellido_pat, apellido_mat, Tipo_Personal)
-            cursor = mysql.connection.cursor()
-            cursor.execute(sql, data)
-            mysql.connection.commit()
+        sql = "INSERT INTO personal(nombre_personal, apellido_pat, apellido_mat, Tipo_Personal) VALUE(%s, %s, %s, %s);"
+        data = (nombre_personal, apellido_pat, apellido_mat, Tipo_Personal)
+        cursor = mysql.connection.cursor()
+        cursor.execute(sql, data)
+        mysql.connection.commit()
 
-            response_object['message'] = "Successfully Added"
-            return jsonify(response_object)
+        response_object = {'status': 'success',
+                           'message': "Successfully Added"}
+        return jsonify(response_object)
     except Exception as e:
         response_object = {'status': 'error'}
         response_object['message'] = f"Error al insertar el personal: {e}"
@@ -138,7 +138,7 @@ def insert_personal():
 # API para equipo
 
 
-@app.route('/insert_equipo', methods=['GET', 'POST'])
+@app.route('/equipo', methods=['POST'])
 def insert_equipo():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -167,7 +167,7 @@ def insert_equipo():
 # API para incidente
 
 
-@app.route('/insert_incidente', methods=['GET', 'POST'])
+@app.route('/incidente', methods=['POST'])
 def insert_incidente():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -200,7 +200,7 @@ def insert_incidente():
 # API para personal
 
 
-@app.route('/delete_personal', methods=['GET', 'POST'])
+@app.route('/personal', methods=['DELETE'])
 def delete_personal():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -225,7 +225,7 @@ def delete_personal():
 # API para equipo
 
 
-@app.route('/delete_equipo', methods=['GET', 'POST'])
+@app.route('/equipo', methods=['DELETE'])
 def delete_equipo():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -249,7 +249,7 @@ def delete_equipo():
 # API para incidente
 
 
-@app.route('/delete_incidente', methods=['GET', 'POST'])
+@app.route('/incidente', methods=['DELETE'])
 def delete_incidente():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -277,7 +277,7 @@ def delete_incidente():
 # API para personal
 
 
-@app.route('/edit_personal', methods=['GET', 'POST'])
+@app.route('/personal', methods=['PUT'])
 def edit_personal():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -324,7 +324,7 @@ def edit_personal():
 # API para equipo
 
 
-@app.route('/edit_equipo', methods=['GET', 'POST'])
+@app.route('/equipo', methods=['PUT'])
 def edit_equipo():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -366,10 +366,11 @@ def edit_equipo():
         response_object['message'] = f"Error al editar el equipo : {e}"
         print(response_object)
         return jsonify(response_object)
+
 # API para incidente
 
 
-@app.route('/edit_incidente', methods=['GET', 'POST'])
+@app.route('/incidente', methods=['PUT'])
 def edit_incidente():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
