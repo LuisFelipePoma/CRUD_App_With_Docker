@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class APISService {
-  private readonly IP = 'http://54.84.236.152:5000'; // Variable que guarda la IP
+  private readonly IP = 'http://44.204.201.166:5000'; // Variable que guarda la IP
 
   constructor(private http: HttpClient) { }
 
@@ -20,17 +20,17 @@ export class APISService {
 
   // API para enviar la informacion de un nuevo personal
   enviarPersonal(body: any) {
-    return this.http.post(`${this.IP}/insert_personal`, body);
+    return this.http.post(`${this.IP}/personal`, body);
   }
 
   // API para eliminar la informacion de un personal
   eliminarPersonal(body: any) {
-    return this.http.post(`${this.IP}/delete_personal`, body);
+    return this.http.delete(`${this.IP}/personal`, body);
   }
 
   // API para editar la informacion de un personal
   editarPersonal(body: any) {
-    return this.http.post(`${this.IP}/edit_personal`, body);
+    return this.http.put(`${this.IP}/personal`, body);
   }
 
   //---------------------------
