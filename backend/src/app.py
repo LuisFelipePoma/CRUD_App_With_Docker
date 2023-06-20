@@ -9,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Configuración de la conexión a la base de datos
-app.config['MYSQL_HOST'] = '52.200.207.208'
+app.config['MYSQL_HOST'] = '34.201.173.123'
 app.config['MYSQL_USER'] = 'support'
 app.config['MYSQL_PASSWORD'] = 'sistemas20.'
 app.config['MYSQL_DB'] = 'emerginet'
@@ -172,23 +172,22 @@ def insert_incidente():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         response_object = {'status': 'success'}
-        if request.method == 'POST':
-            post_data = request.get_json(silent=True)
-            print(post_data)
-            id_equipo = post_data.get('id_equipo')
-            descripcion_incidente = post_data.get('descripcion_incidente')
-            fecha_incidente = post_data.get('fecha_incidente')
-            hora_incidente = post_data.get('hora_incidente')
-            distrito_incidente = post_data.get('distrito_incidente')
-            sql = "INSERT INTO incidente(id_equipo, descripcion_incidente, fecha_incidente, hora_incidente,distrito_incidente) VALUE(%s, %s, %s, %s, %s);"
-            data = (id_equipo, descripcion_incidente, fecha_incidente,
-                    hora_incidente, distrito_incidente)
-            cursor = mysql.connection.cursor()
-            cursor.execute(sql, data)
-            mysql.connection.commit()
+        post_data = request.get_json(silent=True)
+        print(post_data)
+        id_equipo = post_data.get('id_equipo')
+        descripcion_incidente = post_data.get('descripcion_incidente')
+        fecha_incidente = post_data.get('fecha_incidente')
+        hora_incidente = post_data.get('hora_incidente')
+        distrito_incidente = post_data.get('distrito_incidente')
+        sql = "INSERT INTO incidente(id_equipo, descripcion_incidente, fecha_incidente, hora_incidente,distrito_incidente) VALUE(%s, %s, %s, %s, %s);"
+        data = (id_equipo, descripcion_incidente, fecha_incidente,
+                hora_incidente, distrito_incidente)
+        cursor = mysql.connection.cursor()
+        cursor.execute(sql, data)
+        mysql.connection.commit()
 
-            response_object['message'] = "Successfully Added"
-            return jsonify(response_object)
+        response_object['message'] = "Successfully Added"
+        return jsonify(response_object)
     except Exception as e:
         response_object = {'status': 'error'}
         response_object['message'] = f"Error al insertar el incidente: {e}"
@@ -203,19 +202,30 @@ def insert_incidente():
 @app.route('/personal', methods=['DELETE'])
 def delete_personal():
     try:
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        response_object = {'status': 'success'}
         post_data = request.get_json(silent=True)
-        print(post_data)
-        id = post_data.get('id_personal')
-        id = str(id)
-        sql = "DELETE FROM personal WHERE id_personal = %s;"
-        cursor = mysql.connection.cursor()
-        cursor.execute(sql, (id,))
-        mysql.connection.commit()
-        response_object['message'] = "Successfully Eliminated"
-        print(response_object)
-        return jsonify(response_object)
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        if post_data is not None:
+            id = post_data.get('id_personal')
+            post_data = request.get_json(silent=True)
+            id = post_data.get('id_personal')
+            print(id)
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            response_object = {'status': 'success'}
+            post_data = request.get_json(silent=True)
+            print(post_data)
+            id = post_data.get('id_personal')
+            id = str(id)
+            sql = "DELETE FROM personal WHERE id_personal = %s;"
+            cursor = mysql.connection.cursor()
+            cursor.execute(sql, (id,))
+            mysql.connection.commit()
+            response_object['message'] = "Successfully Eliminated"
+            print(response_object)
+            return jsonify(response_object)
+        else:
+            response_object = {'status': 'error'}
+            response_object['message'] = 'No se recibieron datos válidos en la solicitud.'
+            return jsonify(response_object), 400
     except Exception as e:
         response_object = {'status': 'error'}
         response_object['message'] = f"Error al eliminar el personal: {e}"
@@ -228,18 +238,23 @@ def delete_personal():
 @app.route('/equipo', methods=['DELETE'])
 def delete_equipo():
     try:
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        response_object = {'status': 'success'}
         post_data = request.get_json(silent=True)
-        print(post_data)
-        id = str(post_data.get('id_equipo'))
-        sql = "DELETE FROM equipo WHERE id_equipo = %s;"
-        cursor = mysql.connection.cursor()
-        cursor.execute(sql, (id,))
-        mysql.connection.commit()
-        response_object['message'] = "Successfully Eliminated"
-        print(response_object)
-        return jsonify(response_object)
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        if post_data is not None:
+            response_object = {'status': 'success'}
+            print(post_data)
+            id = str(post_data.get('id_equipo'))
+            sql = "DELETE FROM equipo WHERE id_equipo = %s;"
+            cursor = mysql.connection.cursor()
+            cursor.execute(sql, (id,))
+            mysql.connection.commit()
+            response_object['message'] = "Successfully Eliminated"
+            print(response_object)
+            return jsonify(response_object)
+        else:
+            response_object = {'status': 'error'}
+            response_object['message'] = 'No se recibieron datos válidos en la solicitud.'
+            return jsonify(response_object), 400
     except Exception as e:
         response_object = {'status': 'error'}
         response_object['message'] = f"Error al eliminar el equipo: {e}"
@@ -255,16 +270,21 @@ def delete_incidente():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         response_object = {'status': 'success'}
         post_data = request.get_json(silent=True)
-        print(post_data)
-        id = post_data.get('id_incidente')
-        id = str(id)
-        sql = "DELETE FROM incidente WHERE id_incidente = %s;"
-        cursor = mysql.connection.cursor()
-        cursor.execute(sql, (id,))
-        mysql.connection.commit()
-        response_object['message'] = "Successfully Eliminated"
-        print(response_object)
-        return jsonify(response_object)
+        if post_data is not None:
+          print(post_data)
+          id = post_data.get('id_incidente')
+          id = str(id)
+          sql = "DELETE FROM incidente WHERE id_incidente = %s;"
+          cursor = mysql.connection.cursor()
+          cursor.execute(sql, (id,))
+          mysql.connection.commit()
+          response_object['message'] = "Successfully Eliminated"
+          print(response_object)
+          return jsonify(response_object)
+        else:
+            response_object = {'status': 'error'}
+            response_object['message'] = 'No se recibieron datos válidos en la solicitud.'
+            return jsonify(response_object), 400
     except Exception as e:
         response_object = {'status': 'error'}
         response_object['message'] = f"Error al eliminar el incidente: {e}"

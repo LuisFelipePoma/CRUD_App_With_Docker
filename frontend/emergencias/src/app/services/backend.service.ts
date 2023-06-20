@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class APISService {
-  private readonly IP = 'http://44.204.201.166:5000'; // Variable que guarda la IP
+  private readonly IP = 'http://192.168.18.4:5000'; // Variable que guarda la IP
 
   constructor(private http: HttpClient) { }
 
@@ -44,16 +44,16 @@ export class APISService {
 
   // API para enviar la informacion de un nuevo equipo
   enviarEquipo(body: any) {
-    return this.http.post(`${this.IP}/insert_equipo`, body);
+    return this.http.post(`${this.IP}/equipo`, body);
   }
 
   // API para eliminar la informacion de un equipo
   eliminarEquipo(body: any) {
-    return this.http.post(`${this.IP}/delete_equipo`, body);
+    return this.http.delete(`${this.IP}/equipo`, body);
   }
   // API para editar la informacion de un equipo
   editarEquipo(body: any) {
-    return this.http.post(`${this.IP}/edit_equipo`, body);
+    return this.http.put(`${this.IP}/equipo`, body);
   }
 
   //---------------------------
@@ -67,14 +67,14 @@ export class APISService {
 
   // API para enviar la informacion de un nuevo incidente
   enviarIncidente(body: any) {
-    return this.http.post(`${this.IP}/insert_incidente`, body);
+    return this.http.post(`${this.IP}/incidente`, body);
   }
   // API para eliminar la informacion de un incidente
   eliminarIncidente(body: any) {
-    return this.http.post(`${this.IP}/delete_incidente`, body);
+    return this.http.delete(`${this.IP}/incidente`, body);
   }
   // API para editar la informacion de un incidente
   editarIncidente(body: any) {
-    return this.http.post(`${this.IP}/edit_incidente`, body);
+    return this.http.put(`${this.IP}/incidente`, body);
   }
 }

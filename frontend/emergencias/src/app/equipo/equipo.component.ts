@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APISService } from '../services/backend.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-equipo',
@@ -153,11 +153,17 @@ export class EquipoComponent implements OnInit {
   }
   // Funcion que envia data del form al servidor para eliminar un equipo
   public eliminarData(id: number) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id_equipo: id,
+      },
+    };
     // Se llama a la variable del servicio y a la funcion correspondiente
     this.equipoService
-      .eliminarEquipo({
-        id_equipo: id, //  Se envia el id del personal a eliminar
-      })
+      .eliminarEquipo(options)//  Se envia el id del personal a eliminar
       .subscribe({
         next: (response) => {
           console.log('Respuesta recibida'); // Se recibe una respuesta del servidor
