@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class APISService {
-  private readonly IP = 'http://192.168.18.4:5000'; // Variable que guarda la IP
+  private readonly IP = 'http://3.238.143.154:5000'; // Variable que guarda la IP
 
   constructor(private http: HttpClient) { }
 
