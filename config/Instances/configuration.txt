@@ -2,6 +2,7 @@
  sudo apt update
  sudo apt install mysql-server
  sudo systemctl start mysql.service
+ mysql
  ALTER USER 'root'@' localhost' IDENTIFIED WITH mysql_native_password BY 'sistemas20.';
  FLUSH PRIVILEGES
  mysql -u root -p
@@ -12,24 +13,18 @@
   - bind-address = 0.0.0.0
 
 2. srv_app
+
  sudo apt update
  sudo apt install python3.10-venv
  sudo apt install net-tools curl wget nano unzip -y
- python3 -m venv env
- . env/bin/activate
- pip install flask
-
-# Conectar a base de datos
-
- sudo apt-get update
- sudo apt-get install python3-pip -y
- pip3 install flask-mysqldb
- pip install mysqlclient
-# opcional
  sudo apt-get install build-essential
  sudo apt-get install libmysqlclient-dev
  sudo apt-get install python3-dev
- pip install mysqlclient
+ sudo apt-get update
+ sudo apt-get install python3-pip -y
+ python3 -m venv env
+ . env/bin/activate
+ pip install -r requirements.txt
 
 3. srv-web
 
